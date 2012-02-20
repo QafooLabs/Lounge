@@ -1,0 +1,18 @@
+===========================
+CouchDB local configuration
+===========================
+
+The following lines are required in ``/etc/couchdb/local.ini``::
+
+    linuxhotel:5984 = /linuxhotel/_design/app/_rewrite
+    api.linuxhotel:5984 = /linuxhotel/_design/api/_rewrite
+
+Then you can request the uploaded website at: http://linuxhotel:5984/
+
+
+..
+   Local Variables:
+   mode: rst
+   fill-column: 79
+   End: 
+   vim: et syn=rst tw=79
