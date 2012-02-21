@@ -20,11 +20,44 @@
     <script type="text/javascript" src="/scripts/parseUri.js"></script>
     <script type="text/javascript" src="/scripts/templating.js"></script>
     <script type="text/javascript" src="/scripts/dispatch.js"></script>
+    <script type="text/javascript" src="/scripts/router.js"></script>
+    <script type="text/javascript" src="/scripts/app.js"></script>
 
     <script type="text/javascript">
 // <![CDATA[
 
-// @TODO: Add.
+// Globally available variables
+var History;
+
+$().ready(function() {
+
+    // Initilialize application
+    var app = new Lounge.App();
+    var router = new Lounge.Router( {
+        "main": /^\/$/,
+    } );
+
+    // Initialize templates
+    $( '#content' ).templating( {
+        '/':         'start.tpl',
+        '/search':   'results.tpl',
+        '/exit':     'exit.tpl'
+    } );
+
+    // Start application from currently clicked / used URL
+    (function( window, undefined ) {
+        History = window.History;
+
+        // Bind to StateChange Event
+        History.Adapter.bind( window, 'statechange', function () {
+            var State = History.getState();
+            router.route( parseURL( location.href ) );
+        });
+
+        History.Adapter.trigger( window, 'statechange' );
+
+    } )( window );
+} );
 
 // ]]>
     </script>
