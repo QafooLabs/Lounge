@@ -37,7 +37,8 @@ $().ready(function() {
     // Initilialize application
     var app    = new Lounge.App();
     var router = new Lounge.Router( {
-        "main": /^\/$/,
+        "main":       /^\/$/,
+        "statistics": /^\/statistics$/,
     } );
 
     // Start application from currently clicked / used URL
@@ -49,6 +50,11 @@ $().ready(function() {
             var State = History.getState();
             router.route( parseURL( location.href ) );
         });
+
+        $( "a" ).not( "[href^=\"http\"]" ).bind( "click", function() {
+            History.pushState( null, null, $(this).attr( "href" ) );
+            return false;
+        } );
 
         History.Adapter.trigger( window, 'statechange' );
 
@@ -64,7 +70,7 @@ $().ready(function() {
 
     <h1>Example app</h1>
 
-    <form id="search" onsubmit="return tweetController.search(this);">
+    <form id="search" action="/search">
         <input type="text" name="phrase" value="Search…" />
         <input type="submit" value="Search" />
     </form>

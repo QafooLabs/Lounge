@@ -17,6 +17,21 @@
             );
         };
 
+        var loadStatistics = function( e, eventData )
+        {
+            var groupLevel = eventData.groupLevel || 5;
+            Lounge.utils.query(
+                "/_design/app/_view/statistics?group_level=" + groupLevel,
+                function( data, textStatus, request ) {
+                    console.log( data );
+                    $( e.target ).trigger( "showTweetStatistics", [{
+                        groupLevel: groupLevel,
+                        statistics: data.rows
+                    }] );
+                }
+            );
+        };
+
         var tweet = function( e, eventData )
         {
             // Submit tweet to database
@@ -39,6 +54,7 @@
         return this.each( function()
         {
             $(this).bind( "loadTweets", loadTweets );
+            $(this).bind( "tweetStatistics", loadStatistics );
             $(this).bind( "tweet", tweet );
         } );
     };

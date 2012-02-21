@@ -25,6 +25,6 @@
    },
    {
        "from": "/*",
-       "to": "htdocs/404.html"
+       "to": "htdocs/index.html"
    }
 ]

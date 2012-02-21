@@ -4,6 +4,7 @@
         var app = this;
         $( window ).bind( "route", app.initAppBase );
         $( window ).bind( "route:main", app.initMain );
+        $( window ).bind( "route:statistics", app.initStatistics );
     };
 
     /**
@@ -14,6 +15,7 @@
      */
     App.prototype.initAppBase = function( event, request ) {
         $( '#content' ).templating();
+        $( '#content' ).tweets();
         $( '#navigation' ).markCurrent( {
             "main": "viewTimeline"
         } );
@@ -33,7 +35,6 @@
      * @param Request request
      */
     App.prototype.initMain = function( event, request ) {
-        $( '#content' ).tweets();
         $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
         $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
             return {
@@ -48,6 +49,42 @@
             }
         } );
         $( '#content' ).trigger( "loadTweets" );
+    };
+
+    /**
+     * Initialize statsitics view of application
+     *
+     * @param Event event
+     * @param Request request
+     */
+    App.prototype.initStatistics = function( event, request ) {
+        $( '#content' ).dispatch( "showTweetStatistics", '#content', 'updateContents', function ( data ) {
+            return {
+                template: "statistics.tpl",
+                viewData: {
+                    "level":      data.groupLevel,
+                    "statistics": $.map( data.statistics, function( row )
+                        {
+                            var date = row.key.slice( 0, 3 ).reverse().join( "." );
+                            if ( row.key[3] )
+                            {
+                                date += " " + row.key[3] +
+                                    ( row.key[4] ? ":" + row.key[4] : ":00" ) +
+                                    ( row.key[5] ? "." + row.key[5] : "" );
+                            }
+
+                            return {
+                                "date": date,
+                                "count": row.value,
+                            }
+                        }
+                    ),
+                }
+            }
+        } );
+        $( '#content' ).trigger( "tweetStatistics", [{
+            groupLevel: request.url.params.groupLevel || 5
+        }] );
     };
 
     // Exports
