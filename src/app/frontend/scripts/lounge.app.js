@@ -2,21 +2,17 @@
 
     App = function() {
         var app = this;
-        $( window ).bind( "route", function( event, data ) {
-            app.initMainRoutes( data );
-        } );
-
-        $( window ).bind( "route:main", function( event, data ) {
-            app.initMain( data );
-        } );
+        $( window ).bind( "route", app.initAppBase );
+        $( window ).bind( "route:main", app.initMain );
     };
 
     /**
      * Initialize general application configuration
      *
+     * @param Event event
      * @param Request request
      */
-    App.prototype.initMainRoutes = function( request ) {
+    App.prototype.initAppBase = function( event, request ) {
         $( '#content' ).templating();
         $( '#navigation' ).markCurrent( {
             "main": "viewTimeline"
@@ -33,9 +29,10 @@
     /**
      * Initialize main tweet view of application
      *
+     * @param Event event
      * @param Request request
      */
-    App.prototype.initMain = function( request ) {
+    App.prototype.initMain = function( event, request ) {
         $( '#content' ).tweets();
         $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
         $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
