@@ -10,7 +10,7 @@
         var loadTweets = function( e, eventData )
         {
             Lounge.utils.query(
-                "/_design/app/_view/home?descending=true",
+                "/_design/app/_view/home?descending=true&include_docs=true",
                 function( data, textStatus, request ) {
                     $( e.target ).trigger( "showTweets", [data.rows] );
                 }

@@ -36,12 +36,13 @@
      */
     App.prototype.initMain = function( request ) {
         $( '#content' ).tweets();
+        $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
         $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
             return {
                 template: "home.tpl",
                 viewData: {
                     tweets: $.map( data, function( value ) {
-                        var tweet  = value.value;
+                        var tweet  = value.doc;
                         tweet.time = Lounge.utils.formatTime( tweet.time );
                         return tweet;
                     } )
