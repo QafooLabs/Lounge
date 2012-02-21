@@ -2,20 +2,42 @@
 
     App = function() {
         var app = this;
+        $( window ).bind( "route", function( event, data ) {
+            app.initMainRoutes( data );
+        } );
+
         $( window ).bind( "route:main", function( event, data ) {
             app.initMain( data );
         } );
     };
 
     /**
-     * Initilize application depending on matched path. Since different pages
-     * have different application configuration / use differen application
-     * widgets.
+     * Initialize general application configuration
      *
-     * @param string url
+     * @param Request request
      */
-    App.prototype.initMain = function( url ) {
-        console.log( url );
+    App.prototype.initMainRoutes = function( request ) {
+        $( '#content' ).templating( {
+            '/':         'start.tpl',
+            '/search':   'results.tpl',
+            '/exit':     'exit.tpl'
+        } );
+
+        $( '#navigation' ).markCurrent( {
+            "main": "viewTimeline"
+        } );
+
+        $( '#navigation' ).trigger( "markCurrentLink", request.matched );
+    };
+
+    /**
+     * Initialize main tweet view of application
+     *
+     * @param Request request
+     */
+    App.prototype.initMain = function( request ) {
+        $( '#content' ).dispatch( "showTweets", '#content', 'updateContents' );
+        $( '#content' ).trigger( "loadTweets" );
     };
 
     // Exports

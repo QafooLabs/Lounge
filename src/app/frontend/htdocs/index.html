@@ -20,6 +20,7 @@
     <script type="text/javascript" src="/scripts/parseUri.js"></script>
     <script type="text/javascript" src="/scripts/lounge.templating.js"></script>
     <script type="text/javascript" src="/scripts/lounge.dispatch.js"></script>
+    <script type="text/javascript" src="/scripts/lounge.markCurrent.js"></script>
     <script type="text/javascript" src="/scripts/lounge.router.js"></script>
     <script type="text/javascript" src="/scripts/lounge.app.js"></script>
 
@@ -32,16 +33,9 @@ var History;
 $().ready(function() {
 
     // Initilialize application
-    var app = new Lounge.App();
+    var app    = new Lounge.App();
     var router = new Lounge.Router( {
         "main": /^\/$/,
-    } );
-
-    // Initialize templates
-    $( '#content' ).templating( {
-        '/':         'start.tpl',
-        '/search':   'results.tpl',
-        '/exit':     'exit.tpl'
     } );
 
     // Start application from currently clicked / used URL
@@ -73,7 +67,7 @@ $().ready(function() {
         <input type="submit" value="Search" />
     </form>
 
-    <ul class="navigation">
+    <ul id="navigation">
         <li id="viewTimeline"><a href="#viewTimeline">Home</a></li>
         <li id="statistics"><a href="#statistics">Statistics</a></li>
         <li id="viewUsers"><a href="#viewUsers">View users</a></li>

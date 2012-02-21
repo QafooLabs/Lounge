@@ -56,12 +56,12 @@ h1 {
     text-shadow: #babdb6 1px 1px 2px;
 }
 
-ul.navigation {
+#navigation {
     border-bottom: 1px solid #babdb6;
     height: 20px;
 }
 
-ul.navigation li {
+#navigation li {
     float: left;
     margin: 0px 0px 0px 10px;
     padding: 2px 10px;
@@ -70,12 +70,12 @@ ul.navigation li {
     border: 1px solid #babdb6;
 }
 
-ul.navigation li.active {
+#navigation li.active {
     background-color: #ffffff;
     border-bottom: 1px solid #ffffff;
 }
 
-ul.navigation li a {
+#navigation li a {
     display: block;
     text-decoration: none;
     color: #000000;

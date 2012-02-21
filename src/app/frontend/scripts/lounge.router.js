@@ -20,8 +20,13 @@
         $.each( this.routes, function( identifier, route ) {
             if ( route.test( url.path ) ) {
                 console.log( "Matched " + route + " as route:" + identifier );
-                $( window ).trigger( "route:" + identifier, url );
-                $( window ).trigger( "route", url );
+
+                var request = {
+                    matched: identifier,
+                    url:     url
+                };
+                $( window ).trigger( "route", request );
+                $( window ).trigger( "route:" + identifier, request );
             }
         } );
     };
