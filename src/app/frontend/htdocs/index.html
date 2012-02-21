@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Strict//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html
+    xmlns="http://www.w3.org/1999/xhtml"
+    xml:lang="en"
+    lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+    <title>Linuxhotel - CouchDB example</title>
+
+    <link rel="Stylesheet" type="text/css" href="/styles/screen.css" media="screen" />
+
+    <link rel="icon" href="/images/favicon.png" type="image/png" />
+
+    <script type="text/javascript" src="/scripts/vendor/jquery-1.4.2.min.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/mustache.js"></script>
+    <script type="text/javascript">
+// <![CDATA[
+
+// @TODO: Add.
+
+// ]]>
+    </script>
+</head>
+<body>
+    <div id="login">
+    </div>
+
+    <h1>Example app</h1>
+
+    <form id="search" onsubmit="return tweetController.search(this);">
+        <input type="text" name="phrase" value="Search…" />
+        <input type="submit" value="Search" />
+    </form>
+
+    <ul class="navigation">
+        <li id="viewTimeline"><a href="#viewTimeline">Home</a></li>
+        <li id="statistics"><a href="#statistics">Statistics</a></li>
+        <li id="viewUsers"><a href="#viewUsers">View users</a></li>
+        <li id="createUser"><a href="#createUser">Create new user</a></li>
+    </ul>
+    <div id="twitter">
+        <form id="twitter">
+            <p>What are you doing right now?</p>
+            <input type="text" name="tweet" value="I am …" />
+            <input type="submit" value="Send" />
+        </form>
+    </div>
+    <div id="content">
+        <h2>Welcome</h2>
+        <p>This is a small example application, which allows you to manage <strong>tweet</strong>…</p>
+    </div>
+</body>
+</html>

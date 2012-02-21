@@ -1,0 +1,653 @@
+/**
+ * Reset CSS, so that we start with the same in all browsers
+ */
+html, body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+fieldset, img {
+    border: 0;
+}
+address, caption, cite, code, dfn, em, strong, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+ol, ul {
+    list-style: none;
+}
+caption, th {
+    text-align: left;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+}
+q:before, q:after {
+    content: '';
+}
+
+/**
+ * Custom CSS starts here
+ */
+
+html {
+    overflow-x: auto;
+    overflow-y: scroll;
+}
+
+body {
+    background-color: #eeeeec;
+    font-family: sans-serif;
+    font-size: 12px;
+    line-height: 1.4em;
+    max-width: 800px;
+    margin: 1em auto;
+}
+
+h1 {
+    font-size: 2.5em;
+    background-color: #eeeeef;
+    display: block;
+    margin: 0px 0px 1em 0px;
+    padding: .5em .1em;
+    text-shadow: #babdb6 1px 1px 2px;
+}
+
+ul.navigation {
+    border-bottom: 1px solid #babdb6;
+    height: 20px;
+}
+
+ul.navigation li {
+    float: left;
+    margin: 0px 0px 0px 10px;
+    padding: 2px 10px;
+    height: 15px;
+
+    border: 1px solid #babdb6;
+}
+
+ul.navigation li.active {
+    background-color: #ffffff;
+    border-bottom: 1px solid #ffffff;
+}
+
+ul.navigation li a {
+    display: block;
+    text-decoration: none;
+    color: #000000;
+}
+
+div#login,
+div#twitter,
+div#content {
+    margin-top: -1px;
+    border: 1px solid #babdb6;
+    background-color: #ffffff;
+
+    padding: 10px;
+}
+
+div#content {
+    border-top: none;
+}
+
+a.button {
+    display: inline-block;
+    height: 16px;
+    width: 16px;
+    margin-right: .5em;
+}
+
+/**
+ * Tweets
+ */
+div#content ul.search,
+div#content ul.tweets {
+    margin: .3em auto;
+    padding: 0em;
+    list-style-type: none;
+}
+
+div#content .tweet {
+    padding: .5em;
+    margin: 0em 1em 1em 1em;
+
+    background-color: #d2dde8;
+    border: 1px solid #729fcf;
+}
+
+div#content div.tweet {
+    font-size: 1.4em;
+}
+
+div#content .tweet .text {
+    display: block;
+    color: #204a87;
+    text-shadow: #ffffff 1px 1px 1px;
+    font-size: 1.2em;
+
+    margin-bottom: .3em;
+}
+
+div#content .tweet .annotation {
+    margin-top: .2em;
+    display: block;
+    color: #000000;
+    font-size: .8em;
+}
+
+/**
+ * Twitter form
+ */
+div#twitter form {
+    margin: .3em auto;
+    width: 70%;
+    padding: .5em;
+    border: 1px solid #babdb6;
+    background-color: #eeeeec;
+}
+
+div#twitter form input[type="text"] {
+    width: 80%;
+}
+
+div#twitter form input.password,
+div#twitter form input.user {
+    width: 30%;
+}
+
+div#twitter form input[type="submit"] {
+    float: right;
+    width: 15%;
+}
+
+/**
+ * Search form
+ */
+form#search {
+    float: right;
+    width: 30%;
+    text-align: right;
+}
+
+form#search input[type="text"] {
+    width: 50%;
+}
+
+/**
+ * Login form
+ */
+div#login {
+    float: right;
+    width: 30%;
+    font-size: .9em;
+}
+
+div#login dl {
+    margin: 0;
+}
+
+div#login dl dt {
+    display: block;
+    clear: both;
+    float: left;
+    width: 30%;
+}
+
+div#login dd {
+    display: block;
+    float: right;
+    width: 65%;
+}
+
+/**
+ * Text rendering definitions
+ *
+ * Inspired by blueprint.css
+ */
+
+/* typography.css */
+div#content h2,
+div#content h3,
+div#content h4,
+div#content h5,
+div#content h6 {
+    font-weight: normal;
+    color: #000000;
+    clear: left;
+}
+
+div#content div.image {
+    background-color: #fafae5;
+    border: 1px solid #ffffff;
+    padding: 1px;
+}
+
+div#content div.image img {
+    display: block;
+}
+
+div#content div.image span.image_title {
+    font-size: .8em;
+}
+
+div#content .right {
+    float: right;
+    clear: right;
+    margin: 0em 0em 1em 1em;
+}
+
+div#content .left {
+    float: left;
+    clear: left;
+    margin: 0em 1em 1em 0em;
+}
+
+div#content h2,
+div#content h3 {
+    text-shadow: #babdb6 1px 1px 2px;
+}
+
+div#content h2 {
+    font-size: 2em;
+    margin-top: 0.5em;
+    margin-bottom: 0.75em;
+}
+
+div#content h3 {
+    font-size: 1.5em;
+    line-height: 1;
+    margin-bottom: 1em;
+}
+
+div#content h4 {
+    font-size: 1.2em;
+    line-height: 1.25;
+    margin-bottom: 1.25em;
+}
+
+div#content h5 {
+    font-size: 1em;
+    font-weight: bold;
+    margin-bottom: 1.5em;
+}
+
+div#content h6 {
+    font-size: 1em;
+    font-weight: bold;
+}
+
+div#content h2 img,
+div#content h3 img,
+div#content h4 img,
+div#content h5 img,
+div#content h6 img {
+    margin: 0;
+}
+
+div#content p {
+    margin: 0 0 1.5em;
+    max-width: 550px;
+}
+
+div#content dl.footnote,
+div#content div.note,
+div#content div.toc {
+    width: 170px;
+    float: right;
+    clear: right;
+    margin-bottom: 1em;
+    padding: 4px;
+
+    background-color: #fafae5;
+    border: 1px solid #ffffff;
+    box-shadow: 2px 2px 2px #babdb6;
+    -moz-box-shadow: 2px 2px 2px #babdb6;
+
+    font-size: .9em;
+}
+
+div#content dl.footnote dt {
+    float: left;
+    font-weight: normal;
+}
+
+div#content dl.footnote dt a {
+    text-decoration: none;
+    color: #000000;
+}
+
+div#content a.footnote {
+    vertical-align: super;
+    font-size: .7em;
+    text-decoration: none;
+}
+
+div#content p img.left {
+    float: left;
+    margin: 1.5em 1.5em 1.5em 0;
+    padding: 0;
+}
+
+div#content p img.right {
+    float: right;
+    margin: 1.5em 0 1.5em 1.5em;
+}
+
+div#content a:focus,
+div#content a:hover {
+    color: #000;
+}
+
+div#content a {
+    color: #204a87;
+    text-decoration: underline;
+}
+
+div#content blockquote {
+    margin: 1.5em;
+    color: #666;
+    font-style: italic;
+}
+
+div#content strong {
+    font-weight: bold;
+}
+
+div#content em,
+div#content dfn {
+    font-style: italic;
+}
+
+div#content dfn {
+    font-weight: bold;
+}
+
+div#content sup,
+div#content sub {
+    line-height: 0;
+}
+
+div#content abbr,
+div#content acronym {
+    border-bottom: 1px dotted #666;
+}
+
+div#content address {
+    margin: 0 0 1.5em;
+    font-style: italic;
+}
+
+div#content del {
+    color: #666;
+}
+
+div#content pre {
+    margin: 1.5em 0;
+    white-space: pre;
+}
+
+div#content pre, code, tt {
+    font: 1em monospace;
+    line-height: 1.5;
+}
+
+div#content code.block {
+    display: block;
+    margin: 0 0 1.5em;
+    
+    white-space: pre;
+}
+
+div#content li ul,
+div#content li ol {
+    margin: 0;
+}
+
+div#content ul.error,
+div#content ul.notice,
+div#content ul.success,
+div#content ul, ol {
+    margin: 0 1.5em 0 1.5em;
+    padding-left: 3em;
+}
+
+div#content ul {
+    list-style-type: disc;
+}
+
+div#content ol {
+    list-style-type: decimal;
+}
+
+div#content dl {
+    margin: 0 0 1.5em 0;
+}
+
+div#content dl dt {
+    font-weight: bold;
+}
+
+div#content dd {
+    margin-left: 1.5em;
+}
+
+div#content table {
+    width: 100%;
+    margin: 1em 0em 1em 0;
+    border: 2px solid #000000;
+    border-left: none;
+    border-right: none;
+}
+
+div#content th {
+    font-weight: bold;
+}
+
+div#content thead th {
+    border-bottom: 1px solid #000000;
+}
+
+div#content th,
+div#content td,
+div#content caption {
+    padding: 4px 10px 4px 5px;
+    vertical-align: top;
+}
+
+div#content tr.dark td {
+    background-color: #eeeeef;
+}
+
+div#content tfoot {
+    font-style: italic;
+}
+
+div#content caption {
+    background: #eee;
+}
+
+div#content .small {
+    font-size: .8em;
+    margin-bottom: 1.875em;
+    line-height: 1.875em;
+}
+
+div#content .large {
+    font-size: 1.2em;
+    line-height: 2.5em;
+    margin-bottom: 1.25em;
+}
+
+div#content .hide {
+    display: none;
+}
+
+div#content .quiet {
+    color: #666;
+}
+
+div#content .loud {
+    color: #000;
+}
+
+div#content .highlight {
+    background: #ff0;
+}
+
+div#content .added {
+    background: #060;
+    color: #fff;
+}
+
+div#content .removed {
+    background: #900;
+    color: #fff;
+}
+
+div#content .first {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+div#content .last {
+    margin-right: 0;
+    padding-right: 0;
+}
+
+div#content .top {
+    margin-top: 0;
+    padding-top: 0;
+}
+
+div#content .bottom {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+
+/* forms.css */
+div#content label {
+    display: block;
+    padding: .5em 0em 0em 0em;
+
+    font-weight: bold;
+}
+
+div#content fieldset {
+    padding: 1.4em;
+    margin: 0 0 1.5em 0;
+    border: 1px solid #ffffff;
+    clear: both;
+}
+
+div#content fieldset p {
+    clear: both;
+}
+
+div#content legend {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+div#content input[type=file],
+div#content input[type=text],
+div#content input[type=password],
+div#content input.text,
+div#content input.title,
+div#content textarea,
+div#content select {
+    width: 70%;
+
+    /* Use native UI elements:
+    background-color: #fff;
+    border: 1px solid #bbb;
+    */
+}
+
+div#content input[type="submit"] {
+    width: 20%;
+    float: right;
+}
+
+div#content input[type=file]:focus,
+div#content input[type=text]:focus,
+div#content input[type=password]:focus,
+div#content input.text:focus,
+div#content input.title:focus,
+div#content textarea:focus,
+div#content select:focus {
+    /* Use native UI elements:
+    border-color: #666;
+    */
+}
+
+div#content input[type=file],
+div#content input[type=text],
+div#content input[type=password],
+div#content input.text,
+div#content input.title,
+div#content textarea,
+div#content select {
+    margin: 0.5em 0;
+}
+
+div#content textarea {
+    height: 100px;
+}
+
+div#content input[type=checkbox],
+div#content input[type=radio],
+div#content input.checkbox,
+div#content input.radio {
+}
+
+div#content form.inline {
+    line-height: 3;
+}
+
+div#content form.inline p {
+    margin-bottom: 0;
+}
+
+div#content .error,
+div#content .notice,
+div#content .success {
+    padding: .8em;
+    margin-bottom: 1em;
+    border: 2px solid #ddd;
+}
+
+div#content .error {
+    background: #FBE3E4;
+    color: #8a1f11;
+    border-color: #FBC2C4;
+}
+
+div#content .notice {
+    background: #FFF6BF;
+    color: #514721;
+    border-color: #FFD324;
+}
+
+div#content .success {
+    background: #E6EFC2;
+    color: #264409;
+    border-color: #C6D880;
+}
+
+div#content .error a {
+    color: #8a1f11;
+}
+
+div#content .notice a {
+    color: #514721;
+}
+
+div#content .success a {
+    color: #264409;
+}
