@@ -2,6 +2,13 @@
 
     App = function() {
         var app = this;
+
+        $( '#content' ).templating();
+        $( '#content' ).tweets();
+        $( '#navigation' ).markCurrent( {
+            "main": "viewTimeline"
+        } );
+
         $( window ).bind( "route", app.initAppBase );
         $( window ).bind( "route:main", app.initMain );
         $( window ).bind( "route:statistics", app.initStatistics );
@@ -14,11 +21,9 @@
      * @param Request request
      */
     App.prototype.initAppBase = function( event, request ) {
-        $( '#content' ).templating();
-        $( '#content' ).tweets();
-        $( '#navigation' ).markCurrent( {
-            "main": "viewTimeline"
-        } );
+
+        $( $.fn.dispatch.sources ).unbind( ".dispatcher" );
+        $.fn.dispatch.sources = [];
 
         $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
 
@@ -35,7 +40,7 @@
      * @param Request request
      */
     App.prototype.initMain = function( event, request ) {
-        $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
+       $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
         $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
             return {
                 template: "home.tpl",

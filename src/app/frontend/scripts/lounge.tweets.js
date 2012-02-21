@@ -23,7 +23,6 @@
             Lounge.utils.query(
                 "/_design/app/_view/statistics?group_level=" + groupLevel,
                 function( data, textStatus, request ) {
-                    console.log( data );
                     $( e.target ).trigger( "showTweetStatistics", [{
                         groupLevel: groupLevel,
                         statistics: data.rows

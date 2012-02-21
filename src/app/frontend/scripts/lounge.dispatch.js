@@ -43,16 +43,16 @@
 
         return this.each( function()
         {
-            var $this = $(this);
             target = target || source;
 
             if ( !routes[source] )
             {
                 console.log( "Bind " + source + " to " + node + ":" + target );
-                $this.bind( source, dispatchEvent );
+                $(this).bind( source + ".dispatcher", dispatchEvent );
                 routes[source] = [];
             }
 
+            $.fn.dispatch.sources.push( this );
             routes[source].push( {
                 target:    target,
                 converter: converter || null,
@@ -60,4 +60,6 @@
             } );
         } );
     };
+
+    $.fn.dispatch.sources = [];
 }( jQuery ) );
