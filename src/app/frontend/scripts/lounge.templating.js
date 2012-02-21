@@ -49,9 +49,8 @@
                     Mustache.to_html( templateData, viewData )
                 );
 
-                $( target ).find( "a" ).not( "[href^=\"http\"]" ).click( function() {
-                    var href = $(this).attr( "href" );
-                    History.pushState( null, null, href );
+                $( target ).find( "a" ).not( "[href^=\"http\"]" ).bind( "click", function() {
+                    History.pushState( null, null, $(this).attr( "href" ) );
                     return false;
                 } );
 
