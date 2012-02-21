@@ -1,4 +1,4 @@
-<form onsubmit="return userController.{{target}};">
+<form action="/user" id="user">
 {{#data}}
 <fieldset>
     <legend>Create user</legend>

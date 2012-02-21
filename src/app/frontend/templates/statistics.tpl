@@ -9,10 +9,10 @@
 
 <p>
     Group by:
-    <a onclick="tweetController.statistics( 1 );" href="#statistics">Year</a>
-    <a onclick="tweetController.statistics( 2 );" href="#statistics">Month</a>
-    <a onclick="tweetController.statistics( 3 );" href="#statistics">Day</a>
-    <a onclick="tweetController.statistics( 4 );" href="#statistics">Hour</a>
-    <a onclick="tweetController.statistics( 5 );" href="#statistics">Minute</a>
-    <a onclick="tweetController.statistics( 6 );" href="#statistics">Second</a>
+    <a href="/statistics?groupLevel=6">Year</a>
+    <a href="/statistics?groupLevel=5">Month</a>
+    <a href="/statistics?groupLevel=4">Day</a>
+    <a href="/statistics?groupLevel=3">Hour</a>
+    <a href="/statistics?groupLevel=2">Minute</a>
+    <a href="/statistics?groupLevel=1">Second</a>
 </p>
