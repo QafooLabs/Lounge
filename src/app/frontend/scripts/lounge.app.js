@@ -17,17 +17,16 @@
      * @param Request request
      */
     App.prototype.initMainRoutes = function( request ) {
-        $( '#content' ).templating( {
-            '/':         'start.tpl',
-            '/search':   'results.tpl',
-            '/exit':     'exit.tpl'
-        } );
-
+        $( '#content' ).templating();
         $( '#navigation' ).markCurrent( {
             "main": "viewTimeline"
         } );
 
-        $( '#navigation' ).trigger( "markCurrentLink", request.matched );
+        $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
+
+        $( '#twitter' ).dispatch( "submit", '#content', 'tweet', function ( data ) {
+            return Lounge.utils.formToObject( '#twitter' );
+        }, null, true );
     };
 
     /**
@@ -36,7 +35,19 @@
      * @param Request request
      */
     App.prototype.initMain = function( request ) {
-        $( '#content' ).dispatch( "showTweets", '#content', 'updateContents' );
+        $( '#content' ).tweets();
+        $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
+            return {
+                template: "home.tpl",
+                viewData: {
+                    tweets: $.map( data, function( value ) {
+                        var tweet  = value.value;
+                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                        return tweet;
+                    } )
+                }
+            }
+        } );
         $( '#content' ).trigger( "loadTweets" );
     };
 

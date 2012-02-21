@@ -82,7 +82,7 @@ h1 {
 }
 
 div#login,
-div#twitter,
+div.twitter,
 div#content {
     margin-top: -1px;
     border: 1px solid #babdb6;
@@ -143,7 +143,7 @@ div#content .tweet .annotation {
 /**
  * Twitter form
  */
-div#twitter form {
+div.twitter form {
     margin: .3em auto;
     width: 70%;
     padding: .5em;
@@ -151,16 +151,16 @@ div#twitter form {
     background-color: #eeeeec;
 }
 
-div#twitter form input[type="text"] {
+div.twitter form input[type="text"] {
     width: 80%;
 }
 
-div#twitter form input.password,
-div#twitter form input.user {
+div.twitter form input.password,
+div.twitter form input.user {
     width: 30%;
 }
 
-div#twitter form input[type="submit"] {
+div.twitter form input[type="submit"] {
     float: right;
     width: 15%;
 }

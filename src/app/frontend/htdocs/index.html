@@ -18,11 +18,13 @@
     <script type="text/javascript" src="/scripts/jquery.history.js"></script>
     <script type="text/javascript" src="/scripts/mustache.js"></script>
     <script type="text/javascript" src="/scripts/parseUri.js"></script>
+    <script type="text/javascript" src="/scripts/lounge.util.js"></script>
     <script type="text/javascript" src="/scripts/lounge.templating.js"></script>
     <script type="text/javascript" src="/scripts/lounge.dispatch.js"></script>
     <script type="text/javascript" src="/scripts/lounge.markCurrent.js"></script>
     <script type="text/javascript" src="/scripts/lounge.router.js"></script>
     <script type="text/javascript" src="/scripts/lounge.app.js"></script>
+    <script type="text/javascript" src="/scripts/lounge.tweets.js"></script>
 
     <script type="text/javascript">
 // <![CDATA[
@@ -68,12 +70,12 @@ $().ready(function() {
     </form>
 
     <ul id="navigation">
-        <li id="viewTimeline"><a href="#viewTimeline">Home</a></li>
-        <li id="statistics"><a href="#statistics">Statistics</a></li>
-        <li id="viewUsers"><a href="#viewUsers">View users</a></li>
-        <li id="createUser"><a href="#createUser">Create new user</a></li>
+        <li id="viewTimeline"><a href="/">Home</a></li>
+        <li id="statistics"><a href="/statistics">Statistics</a></li>
+        <li id="viewUsers"><a href="/viewUsers">View users</a></li>
+        <li id="createUser"><a href="/createUser">Create new user</a></li>
     </ul>
-    <div id="twitter">
+    <div class="twitter">
         <form id="twitter">
             <p>What are you doing right now?</p>
             <input type="text" name="tweet" value="I am …" />

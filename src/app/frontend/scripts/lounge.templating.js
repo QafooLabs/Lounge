@@ -5,14 +5,9 @@
  * Dual licensed under the MIT and GPL licenses.
  */
 ;( function( $ ) {
-    $.fn.templating = function( templates )
+    $.fn.templating = function()
     {
         var templateCache = {};
-        var defaultTemplates = {
-            "/start":    "start.tpl",
-        };
-
-        templates = $.extend( defaultTemplates, templates );
 
         var setTemplate = function( e, data )
         {
@@ -23,7 +18,7 @@
 
             showTemplate(
                 e.target,
-                templates[data.template] || "error.tpl",
+                data.template,
                 data.viewData || {},
                 data.success || null
             );
