@@ -24,6 +24,7 @@
 
         $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
 
+        $( '#content' ).dispatch( "tweeted", '#twitter', 'reset' );
         $( '#twitter' ).dispatch( "submit", '#content', 'tweet', function ( data ) {
             return Lounge.utils.formToObject( '#twitter' );
         }, null, true );
