@@ -6,7 +6,8 @@
         $( '#content' ).templating();
         $( '#content' ).tweets();
         $( '#navigation' ).markCurrent( {
-            "main": "viewTimeline"
+            "main":       "viewTimeline",
+            "statistics": "statistics",
         } );
 
         $( window ).bind( "route", app.initAppBase );
