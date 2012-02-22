@@ -33,7 +33,7 @@
                     throw( result );
                 },
             dataType: "json",
-            contentType: "application/json",
+            contentType: contentType,
         } );
     }
 
