@@ -39,7 +39,20 @@
         }, null, true );
 
         // Global search form handling
-        // @TODO: Implement.
+        $( "#search" ).dispatch( "submit", '#content', "searchTweets", function ( data ) {
+            return Lounge.utils.formToObject( "#search" ).phrase;
+        }, null, true );
+        $( '#content' ).dispatch( "tweetSearchResults", '#content', 'updateContents', function ( data ) {
+            return {
+                template: "search.tpl",
+                viewData: {
+                    tweets: $.map( data, function( tweet ) {
+                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                        return tweet;
+                    } )
+                }
+            }
+        } );
 
         // Global login form handling
         $( window ).trigger( "checkLogin" );
@@ -93,7 +106,7 @@
      * @param Request request
      */
     App.prototype.initMain = function( event, request ) {
-       $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
+        $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
         $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
             return {
                 template: "home.tpl",

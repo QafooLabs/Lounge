@@ -22,7 +22,7 @@
         var loadStatistics = function( e, eventData )
         {
             var groupLevel = eventData.groupLevel || 5;
-            Lounge.utils.query(
+            Lounge.utils.queryApi(
                 "/_design/app/_view/statistics?group_level=" + groupLevel,
                 function( data, textStatus, request ) {
                     $( e.target ).trigger( "showTweetStatistics", [{
@@ -61,12 +61,42 @@
             user = eventData;
         }
 
+        var search = function( e, eventData )
+        {
+            Lounge.utils.queryApi(
+                "/_design/app/_view/search?key=" + JSON.stringify( eventData ),
+                function( data, textStatus, request ) {
+                    var results = data.rows[0] ? data.rows[0].value : [];
+                    var docs = {keys: []};
+
+                    for ( var docID in results ) {
+                        docs.keys.push( docID );
+                    }
+
+                    Lounge.utils.queryApi(
+                        "/_all_docs?include_docs=true",
+                        function( data, textStatus, request ) {
+                            var searchResults = [];
+                            $.each( data.rows, function ( key, value ) {
+                                value.doc.scrore = results[value.doc._id];
+                                searchResults.push( value.doc );
+                            } );
+                            $( e.target ).trigger( "tweetSearchResults", [searchResults] );
+                        },
+                        JSON.stringify( docs ),
+                        "POST"
+                    );
+                }
+            );
+        };
+
         return this.each( function()
         {
             $(this).bind( "loadTweets", loadTweets );
             $(this).bind( "tweetStatistics", loadStatistics );
-            $(this).bind( "tweet", tweet );
             $(this).bind( "setTwitterUser", setTwitterUser );
+            $(this).bind( "tweet", tweet );
+            $(this).bind( "searchTweets", search );
         } );
     };
 }( jQuery ) );
