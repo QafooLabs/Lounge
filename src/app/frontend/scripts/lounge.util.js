@@ -7,17 +7,19 @@
      * Performs a query to the database
      *
      * data and method are optional parameters, which default to ``null``
-     * respectively `"GET"``.
+     * respectively `"GET"``. The contentType defaults to ``application/json``.
      *
      * @param string url
      * @param function callback
      * @param string data
      * @param string method
+     * @param string contentType
      */
-    utils.query = function( url, callback, data, method )
+    utils.query = function( url, callback, data, method, contentType )
     {
-        var data   = ( data   === undefined ) ? null : data;
-        var method = ( method === undefined ) ? "GET" : method;
+        var data   = data || null;
+        var method = method || "GET";
+        var contentType = contentType || "application/json";
 
         $.ajax( {
             type: method,
@@ -48,7 +50,7 @@
      */
     utils.queryApi = function( url, callback, data, method )
     {
-        utils.query( "/api" + url, callback, data, method );
+        utils.query( "/api" + url, callback, data, method, "application/json" );
     }
 
     /**
