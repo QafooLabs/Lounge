@@ -24,6 +24,14 @@
        "to": "../../*"
    },
    {
+       "from": "/static/s/*",
+       "to": "_show/*"
+   },
+   {
+       "from": "/static/l/*",
+       "to": "_list/*"
+   },
+   {
        "from": "/*",
        "to": "htdocs/index.html"
    }

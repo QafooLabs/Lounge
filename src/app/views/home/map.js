@@ -2,6 +2,6 @@ function ( doc )
 {
     if ( doc.type == "tweet" )
     {
-        emit( doc.time, null );
+        emit( doc.time, doc );
     }
 }
