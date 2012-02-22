@@ -27,6 +27,7 @@
                 };
                 $( window ).trigger( "route", request );
                 $( window ).trigger( "route:" + identifier, request );
+                return false;
             }
         } );
     };
