@@ -39,6 +39,12 @@
             return Lounge.utils.formToObject( '#twitter' );
         }, null, true );
 
+        // Search form handling
+        $( "#search" ).bind( "submit", function() {
+            History.pushState( null, null, $(this).attr( "action" ) + "?phrase=" + $( '#search input[name="phrase"]' ).val() );
+            return false;
+        } );
+
         // Global login form handling
         $( window ).trigger( "checkLogin" );
         $( window ).dispatch( "statusLoggedOut", '#content', 'setTwitterUser', function ( data ) {
