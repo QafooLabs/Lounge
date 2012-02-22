@@ -21,7 +21,7 @@
 
         $.ajax( {
             type: method,
-            url: "/api" + url,
+            url: url,
             data: data,
             success: callback,
             error: function( request, textStatus, error )
@@ -33,6 +33,22 @@
             dataType: "json",
             contentType: "application/json",
         } );
+    }
+
+    /**
+     * Performs a query to the database API
+     *
+     * data and method are optional parameters, which default to ``null``
+     * respectively `"GET"``.
+     *
+     * @param string url
+     * @param function callback
+     * @param string data
+     * @param string method
+     */
+    utils.queryApi = function( url, callback, data, method )
+    {
+        utils.query( "/api" + url, callback, data, method );
     }
 
     /**

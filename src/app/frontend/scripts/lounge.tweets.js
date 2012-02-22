@@ -9,7 +9,7 @@
     {
         var loadTweets = function( e, eventData )
         {
-            Lounge.utils.query(
+            Lounge.utils.queryApi(
                 "/_design/app/_view/home?descending=true&include_docs=true",
                 function( data, textStatus, request ) {
                     $( e.target ).trigger( "showTweets", [data.rows] );
@@ -35,7 +35,7 @@
         {
             // Submit tweet to database
             var now = new Date();
-            Lounge.utils.query(
+            Lounge.utils.queryApi(
                 "/",
                 function( data, textStatus, request ) {
                     $( e.target ).trigger( "tweeted" );
