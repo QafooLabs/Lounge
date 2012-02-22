@@ -37,6 +37,7 @@
         {
             if ( !user ) {
                 alert( "Please login before tweeting." );
+                return false;
             }
 
 
