@@ -7,6 +7,8 @@
 ;( function( $ ) {
     $.fn.tweets = function()
     {
+        var user = null;
+
         var loadTweets = function( e, eventData )
         {
             Lounge.utils.queryApi(
@@ -33,6 +35,11 @@
 
         var tweet = function( e, eventData )
         {
+            if ( !user ) {
+                alert( "Please login before tweeting." );
+            }
+
+
             // Submit tweet to database
             var now = new Date();
             Lounge.utils.queryApi(
@@ -43,18 +50,23 @@
                 JSON.stringify( {
                     type: "tweet",
                     text: eventData.tweet,
-                    user: null,
+                    user: user,
                     time: now.getTime(),
                 } ),
                 "POST"
             );
         };
 
+        var setTwitterUser = function( e, eventData ) {
+            user = eventData;
+        }
+
         return this.each( function()
         {
             $(this).bind( "loadTweets", loadTweets );
             $(this).bind( "tweetStatistics", loadStatistics );
             $(this).bind( "tweet", tweet );
+            $(this).bind( "setTwitterUser", setTwitterUser );
         } );
     };
 }( jQuery ) );

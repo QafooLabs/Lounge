@@ -43,6 +43,9 @@
 
         // Global login form handling
         $( window ).trigger( "checkLogin" );
+        $( window ).dispatch( "statusLoggedOut", '#content', 'setTwitterUser', function ( data ) {
+            return null;
+        } );
         $( window ).dispatch( "statusLoggedOut", '#content', 'updatePartial', function ( data ) {
             return {
                 target:   '#login',
@@ -54,6 +57,9 @@
                     }, null, true );
                 }
             }
+        } );
+        $( window ).dispatch( "statusLoggedIn", '#content', 'setTwitterUser', function ( data ) {
+            return data.userCtx.name;
         } );
         $( window ).dispatch( "statusLoggedIn", '#content', 'updatePartial', function ( data ) {
             return {
