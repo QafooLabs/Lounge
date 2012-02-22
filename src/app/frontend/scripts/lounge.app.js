@@ -15,6 +15,7 @@
         $( window ).bind( "route:404", app.showNotFound );
         $( window ).bind( "route:main", app.initMain );
         $( window ).bind( "route:statistics", app.initStatistics );
+        $( window ).bind( "route:search", app.initSearch );
     };
 
     /**
@@ -37,22 +38,6 @@
         $( '#twitter' ).dispatch( "submit", '#content', 'tweet', function ( data ) {
             return Lounge.utils.formToObject( '#twitter' );
         }, null, true );
-
-        // Global search form handling
-        $( "#search" ).dispatch( "submit", '#content', "searchTweets", function ( data ) {
-            return Lounge.utils.formToObject( "#search" ).phrase;
-        }, null, true );
-        $( '#content' ).dispatch( "tweetSearchResults", '#content', 'updateContents', function ( data ) {
-            return {
-                template: "search.tpl",
-                viewData: {
-                    tweets: $.map( data, function( tweet ) {
-                        tweet.time = Lounge.utils.formatTime( tweet.time );
-                        return tweet;
-                    } )
-                }
-            }
-        } );
 
         // Global login form handling
         $( window ).trigger( "checkLogin" );
@@ -156,6 +141,31 @@
         $( '#content' ).trigger( "tweetStatistics", [{
             groupLevel: request.url.params.groupLevel || 5
         }] );
+    };
+
+    /**
+     * Handle search view
+     *
+     * @param Event event
+     * @param Request request
+     */
+    App.prototype.initSearch = function( event, request ) {
+        $( '#content' ).trigger( "searchTweets", [
+            request.url.params.phrase || ""
+        ] );
+        $( '#content' ).dispatch( "tweetSearchResults", '#content', 'updateContents', function ( data ) {
+            $( '#search input[name="phrase"]' ).val( data.phrase );
+            return {
+                template: "search.tpl",
+                viewData: {
+                    phrase: data.phrase,
+                    tweets: $.map( data.results, function( tweet ) {
+                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                        return tweet;
+                    } )
+                }
+            }
+        } );
     };
 
     // Exports

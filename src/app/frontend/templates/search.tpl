@@ -1,4 +1,4 @@
-<h2>Search results</h2>
+<h2>Search results for &quot;{{phrase}}&quot;</h2>
 
 <ul class="search">
 {{#tweets}}

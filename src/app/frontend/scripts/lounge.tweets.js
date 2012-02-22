@@ -81,7 +81,10 @@
                                 value.doc.scrore = results[value.doc._id];
                                 searchResults.push( value.doc );
                             } );
-                            $( e.target ).trigger( "tweetSearchResults", [searchResults] );
+                            $( e.target ).trigger( "tweetSearchResults", {
+                                phrase:  eventData,
+                                results: searchResults
+                            } );
                         },
                         JSON.stringify( docs ),
                         "POST"
