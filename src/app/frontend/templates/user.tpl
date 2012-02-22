@@ -1,10 +1,4 @@
-{{#user}}
-<h2>{{prename}} {{surname}}</h2>
-<dl>
-    <dt>Username</dt>
-    <dd>{{username}}</dd>
-</dl>
-{{/user}}
+<h2>Tweets from {{user}}</h2>
 
 <ul class="tweets">
 {{#tweets}}

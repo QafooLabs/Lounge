@@ -16,6 +16,8 @@
         $( window ).bind( "route:main", app.initMain );
         $( window ).bind( "route:statistics", app.initStatistics );
         $( window ).bind( "route:search", app.initSearch );
+        $( window ).bind( "route:user", app.showUser );
+        $( window ).bind( "route:tweet", app.showTweet );
     };
 
     /**
@@ -169,6 +171,53 @@
                         tweet.time = Lounge.utils.formatTime( tweet.time );
                         return tweet;
                     } )
+                }
+            }
+        } );
+    };
+
+    /**
+     * Show a single user
+     *
+     * @param Event event
+     * @param Request request
+     */
+    App.prototype.showUser = function( event, request ) {
+        $( '#content' ).trigger( "tweetsByUser", [
+            request.url.params.match
+        ] );
+        $( '#content' ).dispatch( "showTweetsByUser", '#content', 'updateContents', function ( data ) {
+            console.log( data );
+            return {
+                template: "user.tpl",
+                viewData: {
+                    user: request.url.params.match,
+                    tweets: $.map( data, function( value ) {
+                        var tweet = value.doc;
+                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                        return tweet;
+                    } )
+                }
+            }
+        } );
+    };
+
+    /**
+     * Show a single tweet
+     *
+     * @param Event event
+     * @param Request request
+     */
+    App.prototype.showTweet = function( event, request ) {
+        $( '#content' ).trigger( "singleTweet", [
+            request.url.params.match
+        ] );
+        $( '#content' ).dispatch( "showTweet", '#content', 'updateContents', function ( data ) {
+            data.time = Lounge.utils.formatTime( data.time );
+            return {
+                template: "tweet.tpl",
+                viewData: {
+                    tweet: data,
                 }
             }
         } );

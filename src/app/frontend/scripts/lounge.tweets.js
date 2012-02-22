@@ -19,6 +19,26 @@
             );
         };
 
+        var tweetsByUser = function( e, eventData )
+        {
+            Lounge.utils.queryApi(
+                "/_design/app/_view/tweets_per_user?descending=true&include_docs=true",
+                function( data, textStatus, request ) {
+                    $( e.target ).trigger( "showTweetsByUser", [data.rows] );
+                }
+            );
+        };
+
+        var show = function( e, eventData )
+        {
+            Lounge.utils.queryApi(
+                "/" + eventData,
+                function( data, textStatus, request ) {
+                    $( e.target ).trigger( "showTweet", [data] );
+                }
+            );
+        };
+
         var loadStatistics = function( e, eventData )
         {
             var groupLevel = eventData.groupLevel || 5;
@@ -101,6 +121,8 @@
             $(this).bind( "setTwitterUser", setTwitterUser );
             $(this).bind( "tweet", tweet );
             $(this).bind( "searchTweets", search );
+            $(this).bind( "tweetsByUser", tweetsByUser );
+            $(this).bind( "singleTweet", show );
         } );
     };
 }( jQuery ) );

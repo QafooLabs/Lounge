@@ -18,8 +18,12 @@
      */
     Router.prototype.route = function( url ) {
         $.each( this.routes, function( identifier, route ) {
-            if ( route.test( url.path ) ) {
+            if ( matches = url.path.match( route ) ) {
                 console.log( "Matched " + route + " as route:" + identifier );
+                
+                if ( matches[1] ) {
+                    url.params.match = matches[1];
+                }
 
                 var request = {
                     matched: identifier,
