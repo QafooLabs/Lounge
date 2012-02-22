@@ -3,6 +3,7 @@
     App = function() {
         var app = this;
 
+        $( window ).user();
         $( '#content' ).templating();
         $( '#content' ).tweets();
         $( '#navigation' ).markCurrent( {
@@ -24,15 +25,47 @@
      */
     App.prototype.initAppBase = function( event, request ) {
 
+        // Reset all singals on "startup"
         $( $.fn.dispatch.sources ).unbind( ".dispatcher" );
         $.fn.dispatch.sources = [];
 
+        // Navigation handling
         $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
 
+        // Global tweet form handling
         $( '#content' ).dispatch( "tweeted", '#twitter', 'reset' );
         $( '#twitter' ).dispatch( "submit", '#content', 'tweet', function ( data ) {
             return Lounge.utils.formToObject( '#twitter' );
         }, null, true );
+
+        // Global search form handling
+        // @TODO: Implement.
+
+        // Global login form handling
+        $( window ).trigger( "checkLogin" );
+        $( window ).dispatch( "statusLoggedOut", '#content', 'updatePartial', function ( data ) {
+            return {
+                target:   '#login',
+                template: 'logout.tpl',
+                viewData: data.userCtx,
+                success:  function() {
+                    $( "#userLogin" ).dispatch( "submit", window, "login", function ( data ) {
+                        return Lounge.utils.formToObject( "#userLogin" );
+                    }, null, true );
+                }
+            }
+        } );
+        $( window ).dispatch( "statusLoggedIn", '#content', 'updatePartial', function ( data ) {
+            return {
+                target:   '#login',
+                template: 'login.tpl',
+                viewData: data.userCtx,
+                success:  function() {
+                    $( "#userLogout" ).unbind( "click" );
+                    $( "#userLogout" ).dispatch( "click", window, "logout", null, null, true );
+                }
+            }
+        } );
     };
 
     /**

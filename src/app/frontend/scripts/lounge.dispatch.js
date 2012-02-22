@@ -37,7 +37,10 @@
                 $( node ).trigger( callback.target, convertedEventData );
             } );
 
-            stopPropagation = stopPropagation || false;
+            if ( stopPropagation = stopPropagation || false ) {
+                console.log( "Force-stopped event propagation." );
+                e.stopPropagation();
+            }
             return !stopPropagation;
         };
 
