@@ -26,7 +26,7 @@
 
         var setPartial = function( e, data )
         {
-            showTemplate( data.target, data.template, data.viewData || {} );
+            showTemplate( data.target, data.template, data.viewData || {}, data.success || null );
         };
 
         var showTemplate = function( target, template, viewData, success )
