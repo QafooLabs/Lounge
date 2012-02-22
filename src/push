@@ -123,7 +123,7 @@ http_request( $target, $path, 'PUT', json_encode( $document ) );
 function http_request( array $host, $path, $method = 'GET', $data = null )
 {
     $httpFilePointer = @fopen(
-        $url = $host['scheme'] . '://' . $host['user'] . ':' . $host['password'] . '@' . $host['host']  . ':' . $host['port'] . $path,
+        $url = $host['scheme'] . '://' . $host['user'] . ':' . $host['pass'] . '@' . $host['host']  . ':' . $host['port'] . $path,
         'r',
         false,
         stream_context_create(
@@ -142,7 +142,6 @@ function http_request( array $host, $path, $method = 'GET', $data = null )
     if ( $httpFilePointer === false )
     {
         $error = error_get_last();
-        var_dump( $error);
         throw new Exception( "Could not connect to server at $url: $error" );
     }
 
@@ -171,6 +170,14 @@ function http_request( array $host, $path, $method = 'GET', $data = null )
             list( $key, $value ) = explode( ':', $lineContent, 2 );
             $headers[strtolower( $key )] = ltrim( $value );
         }
+    }
+
+    // @HACK: Ugly hack. Detect auth fail by matching agaisnt the location
+    // header. CouchDB answers with 200 OK on failed, but required, auth.
+    if ( isset( $headers['location'] ) &&
+         preg_match( '(/session.*reason=(?P<reason>.*)$)', $headers['location'], $match ) )
+    {
+        throw new Exception( "Auth failure: " . urldecode( $match['reason'] ) );
     }
 
     if ( $headers['status'] >= 400 )
