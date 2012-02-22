@@ -11,6 +11,7 @@
         } );
 
         $( window ).bind( "route", app.initAppBase );
+        $( window ).bind( "route:404", app.showNotFound );
         $( window ).bind( "route:main", app.initMain );
         $( window ).bind( "route:statistics", app.initStatistics );
     };
@@ -32,6 +33,18 @@
         $( '#twitter' ).dispatch( "submit", '#content', 'tweet', function ( data ) {
             return Lounge.utils.formToObject( '#twitter' );
         }, null, true );
+    };
+
+    /**
+     * Show not found result for unmatched routes
+     *
+     * @param Event event
+     * @param Request request
+     */
+    App.prototype.showNotFound = function( event, request ) {
+        $( '#content' ).trigger( 'updateContents', {
+            template: "404.tpl",
+        } );
     };
 
     /**
