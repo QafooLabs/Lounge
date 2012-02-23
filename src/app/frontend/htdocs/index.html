@@ -46,6 +46,7 @@ $().ready(function() {
         "404":        /./,
     } );
 
+
     // Start application from currently clicked / used URL
     (function( window, undefined ) {
         History = window.History;
@@ -56,12 +57,8 @@ $().ready(function() {
             router.route( parseURL( location.href ) );
         });
 
-        $( "a" ).not( "[href^=\"http\"]" ).bind( "click", function() {
-            History.pushState( null, null, $(this).attr( "href" ) );
-            return false;
-        } );
-
-        History.Adapter.trigger( window, 'statechange' );
+        $( window ).trigger( "statechange" );
+        $( window ).trigger( "contentLoaded", "body" );
 
     } )( window );
 } );

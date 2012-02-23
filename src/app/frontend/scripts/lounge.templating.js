@@ -49,10 +49,7 @@
                     Mustache.to_html( templateData, viewData )
                 );
 
-                $( target ).find( "a" ).not( "[href^=\"http\"]" ).bind( "click", function() {
-                    History.pushState( null, null, $(this).attr( "href" ) );
-                    return false;
-                } );
+                $( window ).trigger( "contentLoaded", [target] );
 
                 // call optional success function after completion
                 if ( success )

@@ -32,6 +32,30 @@
         $( $.fn.dispatch.sources ).unbind( ".dispatcher" );
         $.fn.dispatch.sources = [];
 
+        // General content handling
+        $( window ).bind( "contentLoaded", function ( e, target ) {
+            $( target ).find( "input").each( function() {
+                this.defaultValue = this.value;
+
+                $(this).bind( "focus", function () {
+                    if ( this.value == this.defaultValue ) {
+                        $(this).val( "" );
+                    }
+                } );
+
+                $(this).bind( "blur", function () {
+                    if ( this.value == "" ) {
+                        $(this).val( this.defaultValue );
+                    }
+                } );
+            } );
+
+            $( target ).find( "a" ).not( "[href^=\"http\"]" ).bind( "click", function() {
+                History.pushState( null, null, $(this).attr( "href" ) );
+                return false;
+            } );
+        } );
+
         // Navigation handling
         $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
 
@@ -187,7 +211,6 @@
             request.url.params.match
         ] );
         $( '#content' ).dispatch( "showTweetsByUser", '#content', 'updateContents', function ( data ) {
-            console.log( data );
             return {
                 template: "user.tpl",
                 viewData: {
