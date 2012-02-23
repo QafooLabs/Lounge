@@ -29,7 +29,7 @@
             error: function( request, textStatus, error )
                 {
                     var result = JSON.parse( request.responseText );
-                    alert( "Error loggin in: " + result.reason );
+                    alert( "Error: " + result.reason );
                     throw( result );
                 },
             dataType: "json",

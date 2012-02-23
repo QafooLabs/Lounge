@@ -55,12 +55,6 @@
 
         var tweet = function( e, eventData )
         {
-            if ( !user ) {
-                alert( "Please login before tweeting." );
-                return false;
-            }
-
-
             // Submit tweet to database
             var now = new Date();
             Lounge.utils.queryApi(
