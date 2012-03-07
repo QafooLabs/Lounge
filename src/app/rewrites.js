@@ -33,6 +33,6 @@
    },
    {
        "from": "/*",
-       "to": "htdocs/index.html"
+       "to": "/index.html"
    }
 ]
