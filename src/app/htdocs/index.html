@@ -10,10 +10,10 @@
 
     <title>Linuxhotel - CouchDB example</title>
 
-    <link rel="Stylesheet" type="text/css" href="/styles/foundation.css" media="screen" />
-    <link rel="Stylesheet" type="text/css" href="/styles/ie.css" media="screen" />
-    <link rel="Stylesheet" type="text/css" href="/styles/jquery-ui-1.8.14.css" media="screen" />
-    <link rel="Stylesheet" type="text/css" href="/styles/app.css" media="screen" />
+    <link rel="Stylesheet" type="text/css" href="/styles/foundation.css" />
+    <link rel="Stylesheet" type="text/css" href="/styles/ie.css" />
+    <link rel="Stylesheet" type="text/css" href="/styles/jquery-ui-1.8.14.css" />
+    <link rel="Stylesheet" type="text/css" href="/styles/app.css" />
 
     <link rel="icon" href="/images/favicon.png" type="image/png" />
 
@@ -78,30 +78,54 @@ $().ready(function() {
     </script>
 </head>
 <body>
-    <div id="login">
-    </div>
+    <div class="container">
+        <div id="header" class="row">
+            <div class="eight columns">
+                <h1>Lounge &mdash; example app</h1>
+            </div>
+            <div id="search" class="four columns">
+                <form class="nice" action="/search">
+                    <fieldset>
+                        <legend>Search</legend>
+                        <input type="text" class="input-text" name="phrase" placeholder="Search…" />
+                        <button class="small radius black button" type="submit">Search</button>
+                    </fieldset>
+                </form>
+            </div>
+        </div>
 
-    <h1>Example app</h1>
-
-    <form id="search" action="/search">
-        <input type="text" name="phrase" value="Search…" />
-        <input type="submit" value="Search" />
-    </form>
-
-    <ul id="navigation">
-        <li id="viewTimeline"><a href="/">Home</a></li>
-        <li id="statistics"><a href="/statistics">Statistics</a></li>
-    </ul>
-    <div class="twitter">
-        <form id="twitter">
-            <p>What are you doing right now?</p>
-            <input type="text" name="tweet" value="I am …" />
-            <input type="submit" value="Send" />
-        </form>
-    </div>
-    <div id="content">
-        <h2>Welcome</h2>
-        <p>This is a small example application, which allows you to <strong>tweet</strong>…</p>
+        <div class="row main">
+            <div id="sidebar" class="three columns">
+                <div class="row">
+                    <div id="login" class="twelve columns">
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="tweet" class="twelve columns">
+                        <form id="twitter" class="nice">
+                            <fieldset>
+                                <legend>Publish</legend>
+                                <textarea placeholder="What are you doing right now?" name="tweet"></textarea>
+                                <button class="small radius black button" type="submit">Tweet</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="stats" class="twelve columns">
+                    </div>
+                </div>
+            </div>
+            <div id="content" class="nine columns">
+                <h2>Welcome</h2>
+                <p>This is a small example application, which allows you to <strong>tweet</strong>…</p>
+            </div>
+        </div>
+        <div id="footer" class="row">
+            <div class="twelve columns center">
+                <strong>Lounge &mdash; a CouchApp demo</strong> by Kore
+            </div>
+        </div>
     </div>
 </body>
 </html>
