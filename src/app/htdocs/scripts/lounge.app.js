@@ -94,7 +94,7 @@
         } );
         $( window ).dispatch( "statusLoggedIn", '#content', 'updatePartial', function ( data ) {
             return {
-                target:   '#login',
+                target:   '#user',
                 template: 'login.tpl',
                 viewData: data.userCtx,
                 success:  function() {

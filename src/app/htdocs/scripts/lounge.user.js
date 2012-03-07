@@ -70,7 +70,7 @@
                 function( data, textStatus, request ) {
                     $( e.target ).trigger( "checkLogin" );
                 },
-                {   "name":     data.user,
+                {   "name":     data.name,
                     "password": data.password,
                 },
                 "POST",
