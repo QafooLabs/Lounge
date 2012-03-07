@@ -66,6 +66,22 @@ form fieldset legend {
     padding: 10px 0px;
 }
 
+#sidebar .box {
+    margin: 5px;
+    padding: 5px;
+
+    border: 1px solid #cccccc;
+}
+
+#sidebar form,
+#sidebar fieldset {
+    margin: 0px;
+}
+
+.box h3 {
+    font-size: 1.2em;
+}
+
 /**
  * Text rendering definitions
  *
