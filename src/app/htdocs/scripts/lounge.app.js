@@ -137,7 +137,7 @@
                 }
             }
         } );
-        $( '#content' ).trigger( "loadTweets" );
+        $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
     };
 
     /**
