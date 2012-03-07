@@ -8,8 +8,8 @@
        "to": "styles/:style"
    },
    {
-       "from": "/scripts/:script",
-       "to": "scripts/:script"
+       "from": "/scripts/*",
+       "to": "scripts/*"
    },
    {
        "from": "/images/:image",
