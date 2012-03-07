@@ -37,7 +37,7 @@
 
         // Search form handling
         $( "#search" ).bind( "submit", function() {
-            History.pushState( null, null, $(this).attr( "action" ) + "?phrase=" + $( '#search input[name="phrase"]' ).val() );
+            History.pushState( null, null, "/search" + "?phrase=" + $( '#search input[name="phrase"]' ).val() );
             return false;
         } );
 
