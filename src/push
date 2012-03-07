@@ -58,12 +58,12 @@ try {
 // Find all files to upload
 foreach ( new RecursiveIteratorIterator(
         new RecursiveDirectoryIterator(
-            $baseDir . '/frontend/',
+            $htdocsBase = $baseDir . '/htdocs/',
             FilesystemIterator::SKIP_DOTS
         )
     ) as $file )
 {
-    $localName = str_replace( $baseDir . '/frontend/', '', $file->getRealPath() );
+    $localName = str_replace( $htdocsBase, '', $file->getRealPath() );
     $document->_attachments[$localName] = array(
         'type'         => 'base64',
         'data'         => base64_encode( file_get_contents( $file ) ),
