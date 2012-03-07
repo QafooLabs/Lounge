@@ -50,7 +50,7 @@
      */
     utils.queryApi = function( url, callback, data, method )
     {
-        utils.query( "/api" + url, callback, data, method, "application/json" );
+        utils.query( "/lounge" + url, callback, data, method, "application/json" );
     }
 
     /**

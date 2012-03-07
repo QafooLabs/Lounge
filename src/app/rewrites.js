@@ -20,7 +20,7 @@
        "to": "templates/:template"
    },
    {
-       "from": "/api/*",
+       "from": "/lounge/*",
        "to": "../../*"
    },
    {
