@@ -62,6 +62,10 @@ form fieldset legend {
     font-family: sans-serif;
 }
 
+#content {
+    padding: 10px 0px;
+}
+
 /**
  * Text rendering definitions
  *
