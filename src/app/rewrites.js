@@ -4,20 +4,20 @@
        "to": "index.html"
    },
    {
-       "from": "/styles/:style",
-       "to": "styles/:style"
+       "from": "/styles/*",
+       "to": "styles/*"
    },
    {
        "from": "/scripts/*",
        "to": "scripts/*"
    },
    {
-       "from": "/images/:image",
-       "to": "images/:image"
+       "from": "/images/*",
+       "to": "images/*"
    },
    {
-       "from": "/templates/:template",
-       "to": "templates/:template"
+       "from": "/templates/*",
+       "to": "templates/*"
    },
    {
        "from": "/lounge/*",
