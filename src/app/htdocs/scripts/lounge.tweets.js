@@ -11,6 +11,10 @@
 
         var loadTweets = function( e, eventData )
         {
+            if ( !user ) {
+                return;
+            }
+
             Lounge.utils.queryApi(
                 "/_design/app/_view/home?descending=true&include_docs=true",
                 function( data, textStatus, request ) {

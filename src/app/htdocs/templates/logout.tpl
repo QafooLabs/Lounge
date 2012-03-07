@@ -1,4 +1,21 @@
-<div class="box">
-    <h3>Logged out</h3>
-    <p>You're not logged in yet. Please <a class="register" href="/register">register</a> or <a class="login" href="/login">login</a> first.</p>
-</div>
+<h2>Logged out</h2>
+
+<p>You're not logged in yet. Please register or login first.</p>
+
+<form id="login" class="nice">
+    <fieldset>
+        <legend>Login</legend>
+        <input type="text" class="input-text" name="name" placeholder="Username" />
+        <input type="password" class="input-text" name="password" placeholder="Password" />
+        <button class="small radius black button" type="submit">Login</button>
+    </fieldset>
+</form>
+
+<form id="register" class="nice">
+    <fieldset>
+        <legend>Register</legend>
+        <input type="text" class="input-text" name="name" placeholder="Username" />
+        <input type="password" class="input-text" name="password" placeholder="Password" />
+        <button class="small radius black button" type="submit">Register</button>
+    </fieldset>
+</form>

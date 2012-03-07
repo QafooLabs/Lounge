@@ -11,27 +11,6 @@
             "statistics": "statistics",
         } );
 
-        $( window ).bind( "route", app.initAppBase );
-        $( window ).bind( "route:404", app.showNotFound );
-        $( window ).bind( "route:main", app.initMain );
-        $( window ).bind( "route:statistics", app.initStatistics );
-        $( window ).bind( "route:search", app.initSearch );
-        $( window ).bind( "route:user", app.showUser );
-        $( window ).bind( "route:tweet", app.showTweet );
-    };
-
-    /**
-     * Initialize general application configuration
-     *
-     * @param Event event
-     * @param Request request
-     */
-    App.prototype.initAppBase = function( event, request ) {
-
-        // Reset all singals on "startup"
-        $( $.fn.dispatch.sources ).unbind( ".dispatcher" );
-        $.fn.dispatch.sources = [];
-
         // General content handling
         $( window ).bind( "contentLoaded", function ( e, target ) {
             $( target ).find( "input").each( function() {
@@ -56,20 +35,38 @@
             } );
         } );
 
-        // Navigation handling
-        $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
+        // Search form handling
+        $( "#search" ).bind( "submit", function() {
+            History.pushState( null, null, $(this).attr( "action" ) + "?phrase=" + $( '#search input[name="phrase"]' ).val() );
+            return false;
+        } );
+
+        $( window ).bind( "route", app.initAppBase );
+        $( window ).bind( "route:404", app.showNotFound );
+        $( window ).bind( "route:main", app.initMain );
+        $( window ).bind( "route:statistics", app.initStatistics );
+        $( window ).bind( "route:search", app.initSearch );
+        $( window ).bind( "route:user", app.showUser );
+        $( window ).bind( "route:tweet", app.showTweet );
+    };
+
+    /**
+     * Initialize general application configuration
+     *
+     * @param Event event
+     * @param Request request
+     */
+    App.prototype.initAppBase = function( event, request ) {
+
+        // Reset all singals on "startup"
+        $( $.fn.dispatch.sources ).unbind( ".dispatcher" );
+        $.fn.dispatch.sources = [];
 
         // Global tweet form handling
         $( '#content' ).dispatch( "tweeted", '#twitter', 'reset' );
         $( '#twitter' ).dispatch( "submit", '#content', 'tweet', function ( data ) {
             return Lounge.utils.formToObject( '#twitter' );
         }, null, true );
-
-        // Search form handling
-        $( "#search" ).bind( "submit", function() {
-            History.pushState( null, null, $(this).attr( "action" ) + "?phrase=" + $( '#search input[name="phrase"]' ).val() );
-            return false;
-        } );
 
         // Global login form handling
         $( window ).trigger( "checkLogin" );
@@ -78,7 +75,7 @@
         } );
         $( window ).dispatch( "statusLoggedOut", '#content', 'updatePartial', function ( data ) {
             return {
-                target:   '#login',
+                target:   '#content',
                 template: 'logout.tpl',
                 viewData: data.userCtx,
                 success:  function() {

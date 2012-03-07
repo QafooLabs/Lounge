@@ -39,11 +39,13 @@ body {
     border-right: 1px solid #cccccc;
 }
 
-form fieldset {
+#header form fieldset,
+#sidebar form fieldset {
     border: none;
 }
 
-form fieldset legend {
+#header form fieldset legend,
+#sidebar form fieldset legend {
     display: none;
 }
 
@@ -65,7 +67,7 @@ form fieldset legend {
 }
 
 #content {
-    padding: 10px 0px;
+    padding: 10px 10px 10px 0px;
 }
 
 #sidebar .box {
