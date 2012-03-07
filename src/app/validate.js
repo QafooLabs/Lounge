@@ -1,5 +1,11 @@
-function ( newDoc , oldDoc , userContext ) {
-    if ( !userContext . name ) {
+function ( newDoc, oldDoc, userContext ) {
+
+    if ( newDoc.type === "user" ) {
+        // Allow all user documents to be created -- on login for example.
+        return;
+    }
+
+    if ( !userContext.name ) {
         throw ( { forbidden: "Please login first." } );
     }
 

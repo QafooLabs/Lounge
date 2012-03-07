@@ -79,8 +79,12 @@
                 template: 'logout.tpl',
                 viewData: data.userCtx,
                 success:  function() {
-                    $( "#userLogin" ).dispatch( "submit", window, "login", function ( data ) {
-                        return Lounge.utils.formToObject( "#userLogin" );
+                    $( "#login" ).dispatch( "submit", window, "login", function ( data ) {
+                        return Lounge.utils.formToObject( "#login" );
+                    }, null, true );
+
+                    $( "#register" ).dispatch( "submit", window, "register", function ( data ) {
+                        return Lounge.utils.formToObject( "#register" );
                     }, null, true );
                 }
             }

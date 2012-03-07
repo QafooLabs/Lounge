@@ -26,6 +26,43 @@
             } );
         };
 
+        var register = function( e, data )
+        {
+            var salt = "someSalt-betterUseSomethingRandomHere";
+            var user = {
+                _id: "org.couchdb.user:" + data.name,
+                name: data.name,
+                type: "user",
+                salt: salt,
+                password_sha: hex_sha1( data.password + salt ),
+                roles: [],
+            }
+
+            // Register user in CouchDBs user database
+            Lounge.utils.query(
+                "/_users/" + user._id,
+                function( data, textStatus, request ) {
+                    alert( "You are now registered." );
+                },
+                JSON.stringify( user ),
+                "PUT"
+            );
+
+            // Also put user into our own database
+            Lounge.utils.query(
+                "/lounge/" + user._id,
+                null,
+                JSON.stringify( {
+                    _id:  user._id,
+                    name: user.name,
+                    type: user.type
+                } ),
+                "PUT"
+            );
+
+            return false;
+        };
+
         var login = function( e, data )
         {
             Lounge.utils.query(
@@ -39,6 +76,8 @@
                 "POST",
                 "application/x-www-form-urlencoded"
             );
+            
+            return false;
         };
 
         var logout = function( e, data )
@@ -58,6 +97,7 @@
         return this.each( function()
         {
             $(this).bind( "checkLogin", checkLogin );
+            $(this).bind( "register", register );
             $(this).bind( "login", login );
             $(this).bind( "logout", logout );
         } );
