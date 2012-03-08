@@ -18,7 +18,27 @@
             Lounge.utils.queryApi(
                 "/_design/app/_view/home?descending=true&include_docs=true",
                 function( data, textStatus, request ) {
-                    $( e.target ).trigger( "showTweets", [data.rows] );
+                    var i;
+                    var tweet = 0;
+                    var tweets = [];
+                    var tweetIndex = {};
+                    for ( i in data.rows ) {
+                        if ( data.rows[i].doc.type === "tweet" ) {
+                            if ( !tweetIndex[data.rows[i].doc._id] ) {
+                                tweetIndex[data.rows[i].doc._id] = tweet++;
+                            }
+
+                            data.rows[i].doc.comments = [];
+                            tweets[tweetIndex[data.rows[i].doc._id]] = data.rows[i].doc;
+                        }
+
+                        if ( data.rows[i].doc.type === "comment" ) {
+                            tweets[tweetIndex[data.rows[i].doc.tweet]].comments.push( data.rows[i].doc );
+                        }
+                    }
+
+                    console.log( tweets );
+                    $( e.target ).trigger( "showTweets", [tweets] );
                 }
             );
         };
@@ -112,6 +132,29 @@
             );
         };
 
+        var comment = function( e, eventData )
+        {
+            var now = new Date();
+            Lounge.utils.queryApi(
+                "/",
+                function( data, textStatus, request ) {
+                    $( e.target ).trigger( "commented" );
+                },
+                JSON.stringify( {
+                    type:      "comment",
+                    tweet:     eventData.tweet,
+                    tweetTime: parseInt( eventData.time, 10 ),
+                    text:      eventData.comment,
+                    rating:    eventData.rating,
+                    user:      user,
+                    time:      now.getTime(),
+                } ),
+                "POST"
+            );
+
+            return false;
+        }
+
         return this.each( function()
         {
             $(this).bind( "loadTweets", loadTweets );
@@ -121,6 +164,7 @@
             $(this).bind( "searchTweets", search );
             $(this).bind( "tweetsByUser", tweetsByUser );
             $(this).bind( "singleTweet", show );
+            $(this).bind( "comment", comment );
         } );
     };
 }( jQuery ) );

@@ -110,18 +110,50 @@
 
         // Init tweet handling
         $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
+        $( '#content' ).dispatch( "commented", '#content', 'loadTweets' );
         $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
             return {
                 template: "home.tpl",
                 viewData: {
-                    tweets: $.map( data, function( value ) {
-                        var tweet  = value.doc;
-                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                    tweets: $.map( data, function( tweet ) {
+                        tweet.formattedTime = Lounge.utils.formatTime( tweet.time );
                         return tweet;
                     } )
+                },
+                success: function () {
+                    $( ".tweet .comment" ).bind( "click", function( e ) {
+                        $( "#content" ).trigger( "updatePartial", {
+                            target:   '#dialog',
+                            template: 'createComment.tpl',
+                            viewData: {
+                                tweet: $( e.target).val().split( "/" )[1],
+                                time: $( e.target).val().split( "/" )[0]
+                            },
+                            success:  function() {
+                                $( '#dialog' ).dialog( {
+                                    draggable: false,
+                                    modal: true,
+                                    title: "Add comment",
+                                    buttons: {
+                                        Comment: function() {
+                                            $( this ).dialog( "close" );
+                                            $( "#content" ).trigger( "comment", [
+                                                Lounge.utils.formToObject( "#dialog form" )
+                                            ] );
+                                        }
+                                    }
+                                } );
+                            }
+                        } );
+
+                        e.stopPropagation();
+                        return false;
+                    } );
                 }
             }
         } );
+
+        // Show tweets after user logged in
         $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
     };
 
@@ -200,7 +232,7 @@
                 viewData: {
                     phrase: data.phrase,
                     tweets: $.map( data.results, function( tweet ) {
-                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                        tweet.formattedTime = Lounge.utils.formatTime( tweet.time );
                         return tweet;
                     } )
                 }
@@ -225,7 +257,7 @@
                     user: request.url.params.match,
                     tweets: $.map( data, function( value ) {
                         var tweet = value.doc;
-                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                        tweet.formattedTime = Lounge.utils.formatTime( tweet.time );
                         return tweet;
                     } )
                 }
@@ -244,7 +276,7 @@
             request.url.params.match
         ] );
         $( '#content' ).dispatch( "showTweet", '#content', 'updateContents', function ( data ) {
-            data.time = Lounge.utils.formatTime( data.time );
+            data.formattedTime = Lounge.utils.formatTime( data.time );
             return {
                 template: "tweet.tpl",
                 viewData: {

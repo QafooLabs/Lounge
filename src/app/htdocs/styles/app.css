@@ -6,6 +6,10 @@
     width: 100%;
 }
 
+.clear {
+    clear: both;
+}
+
 /**
  * Simple general style
  */
@@ -111,14 +115,45 @@ body {
     -moz-border-radius: 3px;
 }
 
-#content .tweet .text {
-    display: block;
+#content .tweet p {
     font-size: 1.2em;
+    margin-bottom: 10px;
 }
 
 #content .tweet .annotations {
     font-size: 90%;
     color: #666666;
+}
+
+#content .tweet .actions {
+    font-size: 90%;
+    color: #666666;
+    text-align: right;
+}
+
+#content .tweet .actions button {
+    padding: 2px 5px;
+    margin-bottom: 2px;
+}
+
+#content .tweet ul.comments {
+    list-style-type: none;
+    padding: 0px;
+    margin: 0px;
+}
+
+#content .tweet ul.comments li {
+    margin: 5px 0px 0px 0px;
+    padding: 5px;
+    border-top: 1px solid #cccccc;
+}
+
+#content .tweet ul.comments p {
+    margin-bottom: 0px;
+}
+
+#dialog {
+    display: none;
 }
 
 /**

@@ -1,9 +1,18 @@
 {{#tweet}}
 <div class="tweet">
-    <span class="text">{{text}}</span>
-    <span class="annotations">
-        by <a class="user" href="/user/{{user}}">{{user}}</a>
-        at <a class="time" href="/tweet/{{_id}}">{{time}}</a>
-    </span>
+    <div class="row">
+        <div class="twelve columns">
+            <p>{{text}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="six columns annotations">
+            by <a class="user" href="/user/{{user}}">{{user}}</a>
+            at <a class="time" href="/tweet/{{_id}}">{{formattedTime}}</a>
+        </div>
+        <div class="six columns actions">
+            <a class="comment" href="/comment/{{_id}}">Comment</a>
+        </div>
+    </div>
 </div>
 {{/tweet}}
