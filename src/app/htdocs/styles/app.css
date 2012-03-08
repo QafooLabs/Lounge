@@ -149,6 +149,7 @@ body {
 }
 
 #content .tweet ul.comments p {
+    font-size: 1em;
     margin-bottom: 0px;
 }
 
