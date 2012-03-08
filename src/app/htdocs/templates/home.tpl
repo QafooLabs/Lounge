@@ -1,4 +1,4 @@
-<h2>Home timeline</h2>
+<h2>Timeline</h2>
 
 <ul class="tweets">
 {{#tweets}}
