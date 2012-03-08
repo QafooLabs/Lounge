@@ -12,7 +12,7 @@
         var markCurrent = function( e, route )
         {
             // Convert all links to sensible JS links
-            $( "li" ).each( function()
+            $( e.target ).find( "a" ).each( function()
             {
                 if ( $(this).attr( "id" ) === mapping[route] )
                 {

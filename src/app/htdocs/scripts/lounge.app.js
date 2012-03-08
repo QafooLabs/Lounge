@@ -48,6 +48,8 @@
         $( window ).bind( "route:search", app.initSearch );
         $( window ).bind( "route:user", app.showUser );
         $( window ).bind( "route:tweet", app.showTweet );
+
+        $( window ).trigger( "checkLogin" );
     };
 
     /**
@@ -68,8 +70,10 @@
             return Lounge.utils.formToObject( '#twitter' );
         }, null, true );
 
+        // Mark current selected tab as selected
+        $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
+
         // Global login form handling
-        $( window ).trigger( "checkLogin" );
         $( window ).dispatch( "statusLoggedOut", '#content', 'setTwitterUser', function ( data ) {
             return null;
         } );
@@ -103,6 +107,22 @@
                 }
             }
         } );
+
+        // Init tweet handling
+        $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
+        $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
+            return {
+                template: "home.tpl",
+                viewData: {
+                    tweets: $.map( data, function( value ) {
+                        var tweet  = value.doc;
+                        tweet.time = Lounge.utils.formatTime( tweet.time );
+                        return tweet;
+                    } )
+                }
+            }
+        } );
+        $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
     };
 
     /**
@@ -124,20 +144,7 @@
      * @param Request request
      */
     App.prototype.initMain = function( event, request ) {
-        $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
-        $( '#content' ).dispatch( "showTweets", '#content', 'updateContents', function ( data ) {
-            return {
-                template: "home.tpl",
-                viewData: {
-                    tweets: $.map( data, function( value ) {
-                        var tweet  = value.doc;
-                        tweet.time = Lounge.utils.formatTime( tweet.time );
-                        return tweet;
-                    } )
-                }
-            }
-        } );
-        $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
+        $( '#content' ).trigger( "loadTweets" );
     };
 
     /**
