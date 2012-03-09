@@ -9,6 +9,11 @@
     {
         var user = null;
 
+        var linkHash = function( string )
+        {
+            return string.replace( /(#([A-Za-z0-9_-]+))/g, '<a href="/hash/$2">$1</a>' );
+        };
+
         var loadTweets = function( e, eventData )
         {
             if ( !user ) {
@@ -28,6 +33,7 @@
 
                             for ( i in tweets.rows ) {
                                 resultIndex[tweets.rows[i].doc._id] = tweet++;
+                                tweets.rows[i].doc.text = linkHash( tweets.rows[i].doc.text );
                                 result[resultIndex[tweets.rows[i].doc._id]] = tweets.rows[i].doc;
                             }
 
