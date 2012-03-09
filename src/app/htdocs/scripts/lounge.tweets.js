@@ -54,7 +54,10 @@
             Lounge.utils.queryApi(
                 "/_design/app/_view/tweets_per_user?descending=true&include_docs=true",
                 function( data, textStatus, request ) {
-                    $( e.target ).trigger( "showTweetsByUser", [data.rows] );
+                    $( e.target ).trigger( "showTweetsByUser", [data.rows.map( function ( value ) {
+                        value.doc.text = linkHash( value.doc.text );
+                        return value;
+                    } )] );
                 }
             );
         };
