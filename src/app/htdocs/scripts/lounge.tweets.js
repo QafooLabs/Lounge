@@ -80,6 +80,7 @@
                             tweet.comments = comments.rows.map( function( value ) {
                                 return value.doc;
                             } );
+                            tweet.text = linkHash( tweet.text );
                             $( e.target ).trigger( "showTweet", [tweet] );
                         }
                     );
