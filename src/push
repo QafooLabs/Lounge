@@ -46,6 +46,7 @@ $document->filters      = array();
 $document->lists        = array();
 $document->shows        = array();
 $document->modules      = array();
+$document->language     = "javascript";
 
 // Check if there already is a design doc
 try {
