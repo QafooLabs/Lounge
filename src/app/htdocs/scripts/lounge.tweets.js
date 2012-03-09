@@ -59,6 +59,16 @@
             );
         };
 
+        var hashTags = function( e, eventData )
+        {
+            Lounge.utils.queryApi(
+                "/_design/app/_view/tags?descending=true&include_docs=true&startkey=[\"" + eventData + "\", {}]&endkey=[\"" + eventData + "\"]",
+                function( data, textStatus, request ) {
+                    $( e.target ).trigger( "showHashTags", [data.rows] );
+                }
+            );
+        };
+
         var show = function( e, eventData )
         {
             Lounge.utils.queryApi(
@@ -178,6 +188,7 @@
             $(this).bind( "tweetsByUser", tweetsByUser );
             $(this).bind( "singleTweet", show );
             $(this).bind( "comment", comment );
+            $(this).bind( "hashTag", hashTags );
         } );
     };
 }( jQuery ) );

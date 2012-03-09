@@ -48,6 +48,7 @@
         $( window ).bind( "route:search", app.initSearch );
         $( window ).bind( "route:user", app.showUser );
         $( window ).bind( "route:tweet", app.showTweet );
+        $( window ).bind( "route:hash", app.showHashTag );
 
         $( window ).trigger( "checkLogin" );
     };
@@ -278,6 +279,32 @@
                 template: "tweet.tpl",
                 viewData: {
                     tweet: data,
+                }
+            }
+        } );
+    };
+
+    /**
+     * Show Listing for a hash tag
+     *
+     * @param Event event
+     * @param Request request
+     */
+    App.prototype.showHashTag = function( event, request ) {
+        $( '#content' ).trigger( "hashTag", [
+            request.url.params.match.toLowerCase()
+        ] );
+        $( '#content' ).dispatch( "showHashTags", '#content', 'updateContents', function ( data ) {
+            console.log( data );
+            return {
+                template: "hash.tpl",
+                viewData: {
+                    tag: request.url.params.match,
+                    tweets: $.map( data, function( value ) {
+                        var tweet = value.doc;
+                        tweet.formattedTime = Lounge.utils.formatTime( tweet.time );
+                        return tweet;
+                    } )
                 }
             }
         } );
