@@ -15,23 +15,23 @@
      * @param string method
      * @param string contentType
      */
-    utils.query = function( url, callback, data, method, contentType )
+    utils.query = function( url, callback, data, method, contentType, error )
     {
         var data   = data || null;
         var method = method || "GET";
         var contentType = contentType || "application/json";
+        var error = error || function( request, textStatus, error ) {
+            var result = JSON.parse( request.responseText );
+            alert( "Error: " + result.reason );
+            throw( result );
+        };
 
         $.ajax( {
             type: method,
             url: url,
             data: data,
             success: callback,
-            error: function( request, textStatus, error )
-                {
-                    var result = JSON.parse( request.responseText );
-                    alert( "Error: " + result.reason );
-                    throw( result );
-                },
+            error: error,
             dataType: "json",
             contentType: contentType,
         } );

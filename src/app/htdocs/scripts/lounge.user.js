@@ -48,18 +48,6 @@
                 "PUT"
             );
 
-            // Also put user into our own database
-            Lounge.utils.query(
-                "/lounge/" + user._id,
-                null,
-                JSON.stringify( {
-                    _id:  user._id,
-                    name: user.name,
-                    type: user.type
-                } ),
-                "PUT"
-            );
-
             return false;
         };
 
@@ -68,6 +56,20 @@
             Lounge.utils.query(
                 "/_session",
                 function( data, textStatus, request ) {
+                    // Create user document, after successful login
+                    Lounge.utils.query(
+                        "/lounge/user-" + data.name,
+                        null,
+                        JSON.stringify( {
+                            _id:  'user-' + data.name,
+                            name: data.name,
+                            type: "user"
+                        } ),
+                        "PUT",
+                        "application/json",
+                        function () {} // Hack: Ignore failures, since this is likely just the conflict on the second try.
+                    );
+
                     $( e.target ).trigger( "checkLogin" );
                 },
                 {   "name":     data.name,
