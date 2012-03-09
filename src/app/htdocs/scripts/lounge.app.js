@@ -173,6 +173,7 @@
     App.prototype.initMain = function( event, request ) {
         // Show tweets after user logged in
         $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
+        $( '#content' ).trigger( 'loadTweets' );
     };
 
     /**
