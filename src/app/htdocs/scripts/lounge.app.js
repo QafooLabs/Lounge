@@ -42,6 +42,7 @@
         } );
 
         $( window ).bind( "route", app.initAppBase );
+
         $( window ).bind( "route:404", app.showNotFound );
         $( window ).bind( "route:main", app.initMain );
         $( window ).bind( "route:statistics", app.initStatistics );
@@ -78,9 +79,8 @@
         $( window ).dispatch( "statusLoggedOut", '#content', 'setTwitterUser', function ( data ) {
             return null;
         } );
-        $( window ).dispatch( "statusLoggedOut", '#content', 'updatePartial', function ( data ) {
+        $( window ).dispatch( "statusLoggedOut", '#content', 'updateContents', function ( data ) {
             return {
-                target:   '#content',
                 template: 'logout.tpl',
                 viewData: data.userCtx,
                 success:  function() {
@@ -94,6 +94,13 @@
                 }
             }
         } );
+        $( window ).dispatch( "statusLoggedOut", '#content', 'updatePartial', function ( data ) {
+            return {
+                target:   '#user',
+                template: 'empty.tpl'
+            }
+        } );
+
         $( window ).dispatch( "statusLoggedIn", '#content', 'setTwitterUser', function ( data ) {
             return data.userCtx.name;
         } );
@@ -108,6 +115,8 @@
                 }
             }
         } );
+        $( "#userLogout" ).unbind( "click" );
+        $( "#userLogout" ).dispatch( "click", window, "logout", null, null, true );
 
         // Init tweet handling
         $( '#content' ).dispatch( "tweeted", '#content', 'loadTweets' );
