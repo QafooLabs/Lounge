@@ -1,13 +1,22 @@
 <h2>Search results for &quot;{{phrase}}&quot;</h2>
 
-<ul class="search">
+<ul class="tweets">
 {{#tweets}}
     <li class="tweet">
-        <span class="text">{{text}}</span>
-        <span class="annotations">
-            by <a class="user" href="/user/{{user}}">{{user}}</a>
-            at <a class="time" href="/tweet/{{_id}}">{{formattedTime}}</a>
-        </span>
+        <div class="row">
+            <div class="twelve columns">
+                <p>{{{text}}}</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="six columns annotations">
+                by <a class="user" href="/user/{{user}}">{{user}}</a>
+                at <a class="time" href="/tweet/{{_id}}">{{formattedTime}}</a>
+            </div>
+            <div class="six columns actions">
+                <button class="comment small white radius button" value="{{time}}/{{_id}}" href="/comment/{{_id}}">Comment</button>
+            </div>
+        </div>
     </li>
 {{/tweets}}
 {{^tweets}}

@@ -149,6 +149,7 @@
                             var searchResults = [];
                             $.each( data.rows, function ( key, value ) {
                                 value.doc.scrore = results[value.doc._id];
+                                value.doc.text = linkHash( value.doc.text );
                                 searchResults.push( value.doc );
                             } );
                             $( e.target ).trigger( "tweetSearchResults", {
