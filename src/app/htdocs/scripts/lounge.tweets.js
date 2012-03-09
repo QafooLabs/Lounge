@@ -64,7 +64,10 @@
             Lounge.utils.queryApi(
                 "/_design/app/_view/tags?descending=true&include_docs=true&startkey=[\"" + eventData + "\", {}]&endkey=[\"" + eventData + "\"]",
                 function( data, textStatus, request ) {
-                    $( e.target ).trigger( "showHashTags", [data.rows] );
+                    $( e.target ).trigger( "showHashTags", [data.rows.map( function ( value ) {
+                        value.doc.text = linkHash( value.doc.text );
+                        return value;
+                    } )] );
                 }
             );
         };

@@ -5,7 +5,7 @@
     <li class="tweet">
         <div class="row">
             <div class="twelve columns">
-                <p>{{text}}</p>
+                <p>{{{text}}}</p>
             </div>
         </div>
         <div class="row">
