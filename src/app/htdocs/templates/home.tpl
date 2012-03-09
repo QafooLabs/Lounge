@@ -14,7 +14,7 @@
                 at <a class="time" href="/tweet/{{_id}}">{{formattedTime}}</a>
             </div>
             <div class="six columns actions">
-                <button class="comment small white radius button" value="{{time}}/{{_id}}" href="/comment/{{_id}}">Comment</button>
+                <button class="comment small white radius button" value="{{_id}}" href="/comment/{{_id}}">Comment</button>
             </div>
         </div>
         <ul class="comments">

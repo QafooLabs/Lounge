@@ -18,27 +18,7 @@
             Lounge.utils.queryApi(
                 "/_design/app/_view/home?descending=true&include_docs=true",
                 function( data, textStatus, request ) {
-                    var i;
-                    var tweet = 0;
-                    var tweets = [];
-                    var tweetIndex = {};
-                    for ( i in data.rows ) {
-                        if ( data.rows[i].doc.type === "tweet" ) {
-                            if ( !tweetIndex[data.rows[i].doc._id] ) {
-                                tweetIndex[data.rows[i].doc._id] = tweet++;
-                            }
-
-                            data.rows[i].doc.comments = [];
-                            tweets[tweetIndex[data.rows[i].doc._id]] = data.rows[i].doc;
-                        }
-
-                        if ( data.rows[i].doc.type === "comment" ) {
-                            tweets[tweetIndex[data.rows[i].doc.tweet]].comments.push( data.rows[i].doc );
-                        }
-                    }
-
-                    console.log( tweets );
-                    $( e.target ).trigger( "showTweets", [tweets] );
+                    $( e.target ).trigger( "showTweets", [data.rows] );
                 }
             );
         };
@@ -143,7 +123,6 @@
                 JSON.stringify( {
                     type:      "comment",
                     tweet:     eventData.tweet,
-                    tweetTime: parseInt( eventData.time, 10 ),
                     text:      eventData.comment,
                     rating:    eventData.rating,
                     user:      user,

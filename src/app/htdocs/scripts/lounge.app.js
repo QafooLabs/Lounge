@@ -115,7 +115,8 @@
             return {
                 template: "home.tpl",
                 viewData: {
-                    tweets: $.map( data, function( tweet ) {
+                    tweets: $.map( data, function( value ) {
+                        var tweet = value.doc;
                         tweet.formattedTime = Lounge.utils.formatTime( tweet.time );
                         return tweet;
                     } )
@@ -125,10 +126,7 @@
                         $( "#content" ).trigger( "updatePartial", {
                             target:   '#dialog',
                             template: 'createComment.tpl',
-                            viewData: {
-                                tweet: $( e.target).val().split( "/" )[1],
-                                time: $( e.target).val().split( "/" )[0]
-                            },
+                            viewData: {tweet: $( e.target).val()},
                             success:  function() {
                                 $( '#dialog' ).dialog( {
                                     draggable: false,

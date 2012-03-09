@@ -2,7 +2,6 @@
     <fieldset>
         <legend>Comment</legend>
         <input type="hidden" name="tweet" value="{{tweet}}" />
-        <input type="hidden" name="time" value="{{time}}" />
         <textarea name="comment" placeholder="Your comment…"></textarea>
         <label>Rating</label>
         <select name="rating">
