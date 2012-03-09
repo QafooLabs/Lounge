@@ -150,9 +150,6 @@
                 }
             }
         } );
-
-        // Show tweets after user logged in
-        $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
     };
 
     /**
@@ -174,7 +171,8 @@
      * @param Request request
      */
     App.prototype.initMain = function( event, request ) {
-        $( '#content' ).trigger( "loadTweets" );
+        // Show tweets after user logged in
+        $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
     };
 
     /**
