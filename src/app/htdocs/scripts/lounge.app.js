@@ -115,8 +115,7 @@
             return {
                 template: "home.tpl",
                 viewData: {
-                    tweets: $.map( data, function( value ) {
-                        var tweet = value.doc;
+                    tweets: $.map( data, function( tweet ) {
                         tweet.formattedTime = Lounge.utils.formatTime( tweet.time );
                         return tweet;
                     } )

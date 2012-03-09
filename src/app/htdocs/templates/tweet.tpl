@@ -14,5 +14,15 @@
             <a class="comment" href="/comment/{{_id}}">Comment</a>
         </div>
     </div>
+    <ul class="comments">
+    {{#comments}}
+        <li>
+            <p>{{text}}</p>
+            <div class="annotations">
+                by {{user}} <span class="rating">({{rating}} / 5)</span>
+            </div>
+        </li>
+    {{/comments}}
+    </ul>
 </div>
 {{/tweet}}

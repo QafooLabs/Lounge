@@ -17,8 +17,28 @@
 
             Lounge.utils.queryApi(
                 "/_design/app/_view/home?descending=true&include_docs=true",
-                function( data, textStatus, request ) {
-                    $( e.target ).trigger( "showTweets", [data.rows] );
+                function( tweets, textStatus, request ) {
+                    Lounge.utils.queryApi(
+                        "/_design/app/_view/rating?group_level=1",
+                        function( ratings, textStatus, request ) {
+                            var i;
+                            var tweet = 0;
+                            var result = [];
+                            var resultIndex = {};
+
+                            for ( i in tweets.rows ) {
+                                resultIndex[tweets.rows[i].doc._id] = tweet++;
+                                result[resultIndex[tweets.rows[i].doc._id]] = tweets.rows[i].doc;
+                            }
+
+                            for ( i in ratings.rows ) {
+                                result[resultIndex[ratings.rows[i].key[0]]].comments = ratings.rows[i].value.count;
+                                result[resultIndex[ratings.rows[i].key[0]]].rating   = ( ratings.rows[i].value.sum / ratings.rows[i].value.count ).toFixed( 1 );
+                            }
+
+                            $( e.target ).trigger( "showTweets", [result] );
+                        }
+                    );
                 }
             );
         };
@@ -37,8 +57,16 @@
         {
             Lounge.utils.queryApi(
                 "/" + eventData,
-                function( data, textStatus, request ) {
-                    $( e.target ).trigger( "showTweet", [data] );
+                function( tweet, textStatus, request ) {
+                    Lounge.utils.queryApi(
+                        "/_design/app/_view/rating?reduce=false&include_docs=true&descending=true&startkey=[\"" + eventData + "\", {}]&endkey=[\"" + eventData + "\"]",
+                        function( comments, textStatus, request ) {
+                            tweet.comments = comments.rows.map( function( value ) {
+                                return value.doc;
+                            } );
+                            $( e.target ).trigger( "showTweet", [tweet] );
+                        }
+                    );
                 }
             );
         };
