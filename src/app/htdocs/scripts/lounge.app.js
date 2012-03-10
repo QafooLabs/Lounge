@@ -73,7 +73,10 @@
         $( '#content' ).dispatch( "tweeted", '#twitter', 'reset' );
         $( '#twitter' ).dispatch( "submit", '#content', 'tweet', function ( data ) {
             return Lounge.utils.formToObject( '#twitter' );
-        }, null, true );
+        }, function( data, targetId, eventData ) {
+            console.log( 'tried to send empty tweet. rejected.' );
+            return eventData.tweet !== '';
+        }, true );
 
         // Mark current selected tab as selected
         $( '#navigation' ).trigger( "markCurrentLink", [request.matched] );
