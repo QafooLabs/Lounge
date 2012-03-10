@@ -12,7 +12,7 @@
             <div class="ten columns annotations">
                 by <a class="user" href="/user/{{user}}">{{user}}</a>
                 at <a class="time" href="/tweet/{{_id}}">{{formattedTime}}</a>
-                ({{comments}} comments, {{rating}} / 5)
+                {{#comments}}({{comments}} comments, {{rating}} / 5){{/comments}}
             </div>
             <div class="two columns actions">
                 <button class="comment small white radius button" value="{{_id}}">Comment</button>
