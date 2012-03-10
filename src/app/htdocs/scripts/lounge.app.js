@@ -1,6 +1,8 @@
 (function( global ) {
 
-    App = function() {
+    var timelineInterval;
+
+    var App = function() {
         var app = this;
 
         $( window ).user();
@@ -65,6 +67,7 @@
         // Reset all singals on "startup"
         $( $.fn.dispatch.sources ).unbind( ".dispatcher" );
         $.fn.dispatch.sources = [];
+        window.clearInterval( timelineInterval );
 
         // Global tweet form handling
         $( '#content' ).dispatch( "tweeted", '#twitter', 'reset' );
@@ -182,7 +185,9 @@
     App.prototype.initMain = function( event, request ) {
         // Show tweets after user logged in
         $( window ).dispatch( "statusLoggedIn", '#content', 'loadTweets' );
+
         $( '#content' ).trigger( 'loadTweets' );
+        timelineInterval = window.setInterval( function () { $( '#content' ).trigger( 'loadTweets' ); }, 1000 );
     };
 
     /**
