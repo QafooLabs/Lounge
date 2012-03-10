@@ -110,6 +110,10 @@
 
         var tweet = function( e, eventData )
         {
+            if ( !user ) {
+                alert( "Please login first!" );
+            }
+
             // Submit tweet to database
             var now = new Date();
             Lounge.utils.queryApi(
