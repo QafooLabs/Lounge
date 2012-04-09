@@ -1,4 +1,7 @@
 (function( global ) {
+    "use strict";
+
+    var Router;
 
     Router = function( routes ) {
         /**
@@ -6,7 +9,7 @@
          *
          * @var hash
          */
-        this.routes = routes || {};
+        this.routes = routes || [];
     };
 
     /**
@@ -17,20 +20,24 @@
      * @param string url
      */
     Router.prototype.route = function( url ) {
-        $.each( this.routes, function( identifier, route ) {
-            if ( matches = url.path.match( route ) ) {
-                console.log( "Matched " + route + " as route:" + identifier );
+
+        jQuery.each( this.routes, function( i, route ) {
+            var matches, request;
+
+            matches = url.path.match( route.regexp );
+            if ( matches ) {
+                console.log( "Matched " + route.regexp + " as route:" + route.name );
                 
                 if ( matches[1] ) {
                     url.params.match = matches[1];
                 }
 
-                var request = {
-                    matched: identifier,
+                request = {
+                    matched: route.name,
                     url:     url
                 };
-                $( window ).trigger( "route", request );
-                $( window ).trigger( "route:" + identifier, request );
+                jQuery( window ).trigger( "route", request );
+                jQuery( window ).trigger( "route:" + route.name, request );
                 return false;
             }
         } );
