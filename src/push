@@ -65,12 +65,32 @@ foreach ( new RecursiveIteratorIterator(
     ) as $file )
 {
     $localName = str_replace( $htdocsBase, '', $file->getRealPath() );
+
+    if ( $localName === 'cache.manifest' ) continue;
+
     $document->_attachments[$localName] = array(
         'type'         => 'base64',
         'data'         => base64_encode( file_get_contents( $file ) ),
         'content_type' => getMimeType( $file ),
     );
 }
+
+// Create cache manifest from this
+$manifest  = "CACHE MANIFEST\n";
+$manifest .= "# " . time() . "\n";
+$manifest .= "FALLBACK:\n";
+$manifest .= "/ /index.html\n";
+$manifest .= "CACHE:\n";
+foreach ( $document->_attachments as $name => $metaData )
+{
+    $manifest .= $name . "\n";
+}
+$document->_attachments["cache.manifest"] = array(
+    'type'         => 'base64',
+    'data'         => base64_encode( $manifest ),
+    'content_type' => 'text/cache-manifest',
+);
+file_put_contents( $htdocsBase . '/cache.manifest', $manifest );
 
 // Add views
 $views = array();
@@ -213,6 +233,9 @@ function getMimeType( $file )
 
         case 'js':
             return 'application/javascript';
+
+        case 'manifest':
+            return 'text/cache-manifest';
 
         default:
             $fileInfoHandler = finfo_open( FILEINFO_MIME_TYPE );
