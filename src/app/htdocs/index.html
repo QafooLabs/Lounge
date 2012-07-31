@@ -17,14 +17,71 @@
 
     <link rel="icon" href="/images/favicon.png" type="image/png" />
 
+</head>
+<body>
+    <div class="container">
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+                    <a class="brand" href="/">
+                        Lounge &mdash; CouchDB Example
+                    </a>
+                    <div class="nav pull-left">
+                        <ul class="nav">
+                            <li><a href="/" title="Home"><i class="icon-home icon-white"></i> Home</a></li>
+                            <li><a href="/statistics" title="Statistics">Statistics</a></li>
+                        </ul>
+                    </div>
+                    <form class="navbar-search pull-right" action="/search" method="GET">
+                        <input type="text" class="search-query" name="phrase" placeholder="Search" />
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="row main">
+            <div class="span3">
+                <div class="row">
+                    <div id="user">
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="tweet">
+                        <form id="twitter" class="well">
+                            <fieldset>
+                                <textarea placeholder="What are you doing right now?" name="tweet"></textarea>
+                                <button class="btn" type="submit">Tweet</button>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div id="stats" class="twelve columns">
+                    </div>
+                </div>
+            </div>
+            <div class="span9">
+                <div id="content">
+                    <div class="panel">
+                        <h2>Welcome</h2>
+                        <p>This is a small example application, which allows you to <strong>tweet</strong>, but it requires JavaScript enabled in your browser.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="span12 footer">
+                <strong>Lounge &mdash; a CouchApp demo</strong> by Kore
+            </div>
+        </div>
+    </div>
+
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery-ui-1.8.14.custom.min.js"></script>
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery.history.js"></script>
 
     <script type="text/javascript" src="/scripts/vendor/mustache/mustache.js"></script>
 
-    <script type="text/javascript" src="/scripts/vendor/foundation/foundation.js"></script>
-    <script type="text/javascript" src="/scripts/vendor/foundation/modernizr.foundation.js"></script>
+    <script type="text/javascript" src="/scripts/vendor/bootstrap/bootstrap.js"></script>
 
     <script type="text/javascript" src="/scripts/vendor/misc/sha1.js"></script>
     <script type="text/javascript" src="/scripts/vendor/misc/parseUri.js"></script>
@@ -85,62 +142,5 @@ $().ready(function() {
 
 // ]]>
     </script>
-</head>
-<body>
-    <div class="container">
-        <div class="navbar">
-            <div class="navbar-inner">
-                <div class="container">
-                    <a class="brand" href="/">
-                        Lounge &mdash; CouchDB Example
-                    </a>
-                    <div class="nav pull-left">
-                        <ul class="nav">
-                            <li><a href="/" title="Home"><i class="icon-home icon-white"></i> Home</a></li>
-                            <li><a href="/statistics" title="Statistics">Statistics</a></li>
-                        </ul>
-                    </div>
-                    <form class="navbar-search pull-right" action="/search" method="GET">
-                        <input type="text" class="search-query" name="phrase" placeholder="Search" />
-                    </form>
-                </div>
-            </div>
-        </div>
-        <div class="row main">
-            <div class="span3">
-                <div class="row">
-                    <div id="user">
-                    </div>
-                </div>
-                <div class="row">
-                    <div id="tweet">
-                        <form id="twitter" class="well">
-                            <fieldset>
-                                <textarea placeholder="What are you doing right now?" name="tweet"></textarea>
-                                <button class="btn" type="submit">Tweet</button>
-                            </fieldset>
-                        </form>
-                    </div>
-                </div>
-                <div class="row">
-                    <div id="stats" class="twelve columns">
-                    </div>
-                </div>
-            </div>
-            <div class="span9">
-                <div id="content">
-                    <div class="panel">
-                        <h2>Welcome</h2>
-                        <p>This is a small example application, which allows you to <strong>tweet</strong>, but it requires JavaScript enabled in your browser.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="span12 footer">
-                <strong>Lounge &mdash; a CouchApp demo</strong> by Kore
-            </div>
-        </div>
-    </div>
 </body>
 </html>
