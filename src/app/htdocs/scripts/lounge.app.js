@@ -331,3 +331,44 @@
     global.Lounge.App = App;
 
 })(this);
+
+// Globally available variables
+var History;
+
+$().ready(function() {
+
+    // Initilialize application
+    var app    = new Lounge.App();
+    var router = new Lounge.Router( [
+        { name: "main",
+        regexp: /^\/$/ },
+        { name: "statistics",
+        regexp: /^\/statistics$/ },
+        { name: "search",
+        regexp: /^\/search/ },
+        { name: "user",
+        regexp: /^\/user\/([A-Za-z0-9_0-9_-]+)/ },
+        { name: "tweet",
+        regexp: /^\/tweet\/([a-f0-9]+)/ },
+        { name: "hash",
+        regexp: /^\/hash\/([A-Za-z0-9_-]+)/ },
+        { name: "404",
+        regexp: /./ }
+    ] );
+
+
+    // Start application from currently clicked / used URL
+    (function( window, undefined ) {
+        History = window.History;
+
+        // Bind to StateChange Event
+        History.Adapter.bind( window, 'statechange', function () {
+            var State = History.getState();
+            router.route( parseURL( location.href ) );
+        });
+
+        $( window ).trigger( "statechange" );
+        $( window ).trigger( "contentLoaded", "body" );
+
+    } )( window );
+} );

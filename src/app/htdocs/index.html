@@ -2,6 +2,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1 Strict//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html
+    manifest="/cache.manifest"   
     xmlns="http://www.w3.org/1999/xhtml"
     xml:lang="en"
     lang="en">
@@ -40,28 +41,24 @@
         </div>
         <div class="row main">
             <div class="span3">
-                <div class="row">
-                    <div id="user">
+                <div id="sidebar">
+                    <div class="row">
+                        <div id="user">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div id="tweet">
-                        <form id="twitter" class="well">
-                            <fieldset>
-                                <textarea placeholder="What are you doing right now?" name="tweet"></textarea>
-                                <button class="btn" type="submit">Tweet</button>
-                            </fieldset>
-                        </form>
+                    <div class="row">
+                        <div id="tweet">
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div id="stats" class="twelve columns">
+                    <div class="row">
+                        <div id="stats">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="span9">
                 <div id="content">
-                    <div class="panel">
+                    <div id="start">
                         <h2>Welcome</h2>
                         <p>This is a small example application, which allows you to <strong>tweet</strong>, but it requires JavaScript enabled in your browser.</p>
                     </div>
@@ -75,6 +72,7 @@
         </div>
     </div>
 
+    <!--
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery-ui-1.8.14.custom.min.js"></script>
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery.history.js"></script>
@@ -95,50 +93,55 @@
     <script type="text/javascript" src="/scripts/lounge.user.js"></script>
     <script type="text/javascript" src="/scripts/lounge.tweets.js"></script>
     <script type="text/javascript" src="/scripts/lounge.app.js"></script>
+    -->
 
     <script type="text/javascript">
 // <![CDATA[
 
-// Globally available variables
-var History;
+    function showStatus( target, message, status ) {
+        target.innerHTML = '<div class="box">' +
+                '<h2>Loading</h2>' +
+                '<p>' + message + '</p>' +
+                '<div class="progress">' +
+                    '<div class="bar" style="width: ' + status + '%">' + status + '%</div>' +
+                '</div>' +
+            '</div>';
+    }
 
-$().ready(function() {
+    if ( !window.applicationCache ) {
+        alert( "Application cache not available. Please update your browser" );
+    } else {
+        var startBox = document.getElementById( "start" ),
+            cache = window.applicationCache;
 
-    // Initilialize application
-    var app    = new Lounge.App();
-    var router = new Lounge.Router( [
-        { name: "main",
-        regexp: /^\/$/ },
-        { name: "statistics",
-        regexp: /^\/statistics$/ },
-        { name: "search",
-        regexp: /^\/search/ },
-        { name: "user",
-        regexp: /^\/user\/([A-Za-z0-9_0-9_-]+)/ },
-        { name: "tweet",
-        regexp: /^\/tweet\/([a-f0-9]+)/ },
-        { name: "hash",
-        regexp: /^\/hash\/([A-Za-z0-9_-]+)/ },
-        { name: "404",
-        regexp: /./ }
-    ] );
+        cache.addEventListener( "checking", function ( event ) {
+            showStatus( startBox, "Checking offline data…", 0 );
+        } );
 
+        cache.addEventListener( "downloading", function ( event ) {
+            showStatus( startBox, "Starting to download offline data…", 0 );
+        } );
 
-    // Start application from currently clicked / used URL
-    (function( window, undefined ) {
-        History = window.History;
+        cache.addEventListener( "downloading", function ( event ) {
+            console.log( event );
+            showStatus( startBox, "Downloading", 0 );
+        } );
 
-        // Bind to StateChange Event
-        History.Adapter.bind( window, 'statechange', function () {
-            var State = History.getState();
-            router.route( parseURL( location.href ) );
-        });
+        cache.addEventListener( "cached", function ( event ) {
+            showStatus( startBox, "Finished", 100 );
+        } );
 
-        $( window ).trigger( "statechange" );
-        $( window ).trigger( "contentLoaded", "body" );
+        cache.addEventListener( "noupdate", function ( event ) {
+            showStatus( startBox, "Nothing to update", 100 );
+        } );
 
-    } )( window );
-} );
+        cache.addEventListener( "updateready", function ( event ) {
+            showStatus( startBox, "Finished", 100 );
+            if ( cache.status === cache.UPDATEREADY ) {
+                window.location.reload();
+            }
+        } );
+    }
 
 // ]]>
     </script>

@@ -11,3 +11,13 @@ body {
     padding: 60px 5px 10px 5px;
 }
 
+.box {
+    margin: 10px auto;
+    max-width: 500px;
+}
+
+.footer {
+    text-align: center;
+    color: #999998;
+}
+
