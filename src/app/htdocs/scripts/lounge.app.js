@@ -335,8 +335,7 @@
 // Globally available variables
 var History;
 
-$().ready(function() {
-
+document.addEventListener( "init", function ( event ) {
     // Initilialize application
     var app    = new Lounge.App();
     var router = new Lounge.Router( [

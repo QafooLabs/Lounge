@@ -33,9 +33,11 @@
                             <li><a href="/statistics" title="Statistics">Statistics</a></li>
                         </ul>
                     </div>
-                    <form class="navbar-search pull-right" action="/search" method="GET">
-                        <input type="text" class="search-query" name="phrase" placeholder="Search" />
-                    </form>
+                    <div class="nav pull-right">
+                        <form class="navbar-search" action="/search" method="GET">
+                            <input type="text" class="search-query" name="phrase" placeholder="Search" />
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -72,7 +74,6 @@
         </div>
     </div>
 
-    <!--
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery-ui-1.8.14.custom.min.js"></script>
     <script type="text/javascript" src="/scripts/vendor/jquery/jquery.history.js"></script>
@@ -93,7 +94,6 @@
     <script type="text/javascript" src="/scripts/lounge.user.js"></script>
     <script type="text/javascript" src="/scripts/lounge.tweets.js"></script>
     <script type="text/javascript" src="/scripts/lounge.app.js"></script>
-    -->
 
     <script type="text/javascript">
 // <![CDATA[
@@ -106,6 +106,12 @@
                     '<div class="bar" style="width: ' + status + '%">' + status + '%</div>' +
                 '</div>' +
             '</div>';
+    }
+
+    function emitInitEvent() {
+        var event = document.createEvent( "Event" );
+        event.initEvent( "init", true, true );
+        document.dispatchEvent( event );
     }
 
     if ( !window.applicationCache ) {
@@ -129,17 +135,20 @@
 
         cache.addEventListener( "cached", function ( event ) {
             showStatus( startBox, "Finished", 100 );
+            emitInitEvent();
         } );
 
         cache.addEventListener( "noupdate", function ( event ) {
             showStatus( startBox, "Nothing to update", 100 );
+            emitInitEvent();
         } );
 
         cache.addEventListener( "updateready", function ( event ) {
             showStatus( startBox, "Finished", 100 );
             if ( cache.status === cache.UPDATEREADY ) {
-                window.location.reload();
+                cache.swapCache();
             }
+            emitInitEvent();
         } );
     }
 
